@@ -41,7 +41,7 @@ export default function PersonalizarPage() {
             </div>
             <div className="bg-neutral-800 rounded-lg overflow-hidden aspect-square">
               <Canvas
-                camera={{ position: [0, 0, 5], fov: 45 }}
+                camera={{ position: [0, 0, 7], fov: 45 }}
                 className="w-full h-full"
               >
                 <Suspense fallback={null}>

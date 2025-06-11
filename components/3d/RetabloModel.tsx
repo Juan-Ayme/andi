@@ -2,16 +2,18 @@
 
 import { useRef } from 'react';
 import { useGLTF } from '@react-three/drei'; // <-- ¡ESTA ES LA LÍNEA QUE FALTABA!
-import { useFrame } from '@react-three/fiber';
+import { useFrame,type GroupProps } from '@react-three/fiber';
 import { Mesh } from 'three';
+import * as THREE from 'three'; // <--- IMPORTACIÓN DE THREE
 
 // Asegúrate de que esta ruta coincida con la ubicación de tu modelo en la carpeta `public`
 const modelPath = '/models/ceramica.glb'; 
 
-export default function RetabloModel(props) {
-  // `useGLTF` es un hook de Drei que carga tu modelo y sus materiales
+// Se añade el tipo "GroupProps" a las props del componente
+export default function RetabloModel(props: GroupProps) { 
   const { scene } = useGLTF(modelPath);
-  const modelRef = useRef();
+  // Se le da un tipo a la referencia para mayor seguridad
+  const modelRef = useRef<THREE.Group>(null); 
 
   // Opcional: Esto hace que el modelo rote lentamente sobre sí mismo. Puedes quitarlo si no lo quieres.
   useFrame((state, delta) => {
@@ -26,7 +28,7 @@ export default function RetabloModel(props) {
     <primitive 
       ref={modelRef}
       object={scene} 
-      scale={1.5}  // Ajusta la escala si tu modelo es muy grande o pequeño
+      scale={1.1}  // Ajusta la escala si tu modelo es muy grande o pequeño
       position={[0, -1, 0]} // Ajusta la posición (x, y, z) para centrarlo
       {...props} 
     />
