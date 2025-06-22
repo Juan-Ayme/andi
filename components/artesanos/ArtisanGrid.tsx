@@ -145,11 +145,11 @@ export default function ArtisanGrid() {
       /* --- Paleta de Colores Verde Pastel (para fondo oscuro) --- */
       bg-transparent
       border-2 border-emerald-400
-      text-emerald-300
-      hover:bg-emerald-400/20  /* <-- Un fondo traslúcido sutil en hover */
-      hover:text-emerald-400
+      !text-emerald-400
+      hover:bg-emerald-200  /* <-- Un fondo traslúcido sutil en hover */
+      hover:!text-emerald-500
       hover:border-emerald-200
-      focus:ring-4 focus:ring-emerald-800
+      focus:ring-4 focus:ring-emerald-00
 
       /* --- Estilos y Transiciones (se mantienen) --- */
       inline-flex items-center justify-center text-center

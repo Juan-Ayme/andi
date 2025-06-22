@@ -284,59 +284,103 @@ export default function ArtisanProfilePage({ params }: ArtisanProfilePageProps) 
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Profile Header */}
-        <div className="relative -mt-32 pb-8">
-          <div className="card-dark p-6">
-            <div className="sm:flex sm:items-center sm:justify-between">
-              <div className="sm:flex sm:space-x-5">
-                <div className="relative h-32 w-32 rounded-full overflow-hidden ring-4 ring-primary-500">
-                  <Image
-                    src={artisan.image}
-                    alt={artisan.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="mt-4 sm:mt-0 text-center sm:text-left">
-                  <h1 className="text-white text-3xl font-bold text-neutral-100">{artisan.name}</h1>
-                  <p className="text-white text-lg text-neutral-300">{artisan.specialty}</p>
-                  <div className="mt-2 flex items-center justify-center sm:justify-start">
-                    <MapPin className="text-white h-5 w-5 text-neutral-400" />
-                    <span className="text-white ml-2 text-neutral-300">{artisan.location}</span>
-                  </div>
-                </div>
+      {/* === Profile Header Mejorado === */}
+      <div className="relative -mt-32 pb-8">
+        {/* Se reemplazó "card-dark" por utilidades de Tailwind. 
+          Un fondo más oscuro, bordes más redondeados y una sombra más pronunciada.
+        */}
+        <div className="bg-neutral-900 rounded-2xl shadow-xl p-6 md:p-8">
+
+          {/* --- Sección Superior: Avatar, Info y Botones de Acción --- */}
+          <div className="sm:flex sm:items-start sm:justify-between">
+            
+            {/* --- Avatar e Información --- */}
+            <div className="sm:flex sm:items-center sm:space-x-6">
+              
+              {/* Avatar */}
+              <div className="relative mx-auto sm:mx-0 h-32 w-32 shrink-0">
+                <Image
+                  src={artisan.image}
+                  alt={artisan.name}
+                  fill
+                  className="object-cover rounded-full ring-4 ring-emerald-500/80"
+                />
               </div>
-              <div className="mt-6 sm:mt-0 flex flex-col sm:flex-row gap-4">
-                <Button className="btn-primary flex items-center justify-center">
-                  <Mail className="h-5 w-5 mr-2" />
-                  Contactar
-                </Button>
-                <Button className="btn-secondary flex items-center justify-center">
-                  <Phone className="h-5 w-5 mr-2" />
-                  Llamar
-                </Button>
+              
+              {/* Información del Artesano */}
+              <div className="mt-4 sm:mt-0 text-center sm:text-left">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-emerald-300 drop-shadow-sm tracking-tight">
+                  {artisan.name}
+                </h1>
+                <p className="text-base md:text-lg text-emerald-300 mt-1 font-medium">
+                  {artisan.specialty}
+                </p>
+                <div className="mt-2 flex items-center justify-center sm:justify-start gap-2">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-900/70 text-emerald-300 text-sm font-semibold shadow-sm">
+                    <MapPin className="h-5 w-5 shrink-0" />
+                    {artisan.location}
+                  </span>
+                </div>
               </div>
             </div>
+            
+            {/* --- Botones de Acción --- */}
+            {/* Se usan los estilos de botones definidos previamente para consistencia */}
+            <div className="mt-6 sm:mt-2 flex flex-col sm:flex-row gap-3 shrink-0">
+              <a href={`mailto:${artisan.email}`} className="
+                  bg-emerald-500 text-white hover:bg-emerald-600 
+                  inline-flex items-center justify-center text-center
+                  font-semibold rounded-lg px-4 py-2 transition-colors duration-200">
+                <Mail className="h-5 w-5 mr-2" />
+                Contactar
+              </a>
+              <a
+                href={`tel:${artisan.phone}`}
+                className="
+                  bg-emerald-950/40
+                  border border-emerald-400
+                  text-emerald-200
+                  hover:bg-emerald-800/70
+                  hover:text-white
+                  hover:shadow-lg
+                  focus:outline-none focus:ring-2 focus:ring-emerald-400
+                  inline-flex items-center justify-center text-center
+                  font-semibold rounded-lg px-4 py-2
+                  transition-all duration-200
+                "
+                aria-label={`Llamar a ${artisan.name}`}
+              >
+                <Phone className="h-5 w-5 mr-2" />
+                Llamar
+              </a>
+            </div>
+          </div>
 
-            <div className="mt-6 flex items-center justify-between border-t border-neutral-700 pt-6">
-              <div className="flex items-center">
-                <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
-                <span className="ml-2 font-medium text-neutral-100">{artisan.rating}</span>
-                <span className="ml-1 text-neutral-400">({artisan.reviews} reseñas)</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {artisan.techniques.slice(0, 2).map((technique, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-500/20 text-primary-300 border border-primary-500/30"
-                  >
-                    {technique}
-                  </span>
-                ))}
-              </div>
+          {/* --- Sección Inferior: Rating y Técnicas --- */}
+          <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-neutral-700/80 pt-6">
+            
+            {/* Rating */}
+            <div className="flex items-center gap-1.5">
+              <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+              <span className="font-bold text-lg text-neutral-100">{artisan.rating}</span>
+              <span className="text-sm text-neutral-400">({artisan.reviews} reseñas)</span>
+            </div>
+            
+            {/* Etiquetas de Técnicas */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {artisan.techniques.slice(0, 3).map((technique) => (
+                <span
+                  key={technique}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
+                            bg-emerald-500/10 text-emerald-500 ring-1 ring-inset ring-emerald-500/20"
+                >
+                  {technique}
+                </span>
+              ))}
             </div>
           </div>
         </div>
+      </div>
 
         {/* Content Tabs */}
         <ArtisanTabs artisan={artisan} />
