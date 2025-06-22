@@ -13,7 +13,7 @@ const artisans = [
     location: 'Quinua, Ayacucho',
     rating: 4.8,
     reviews: 124,
-    image: 'https://images.pexels.com/photos/4498177/pexels-photo-4498177.jpeg',
+    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723620186-66.png',
     bio: 'Especialista en textiles tradicionales ayacuchanos con más de 25 años de experiencia.'
   },
   {
@@ -23,7 +23,7 @@ const artisans = [
     location: 'Huamanga, Ayacucho',
     rating: 4.9,
     reviews: 98,
-    image: 'https://images.pexels.com/photos/8102319/pexels-photo-8102319.jpeg',
+    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723522585-albertof1.png',
     bio: 'Maestro tallador de piedra de Huamanga, preservando técnicas ancestrales.'
   },
   {
@@ -33,7 +33,7 @@ const artisans = [
     location: 'San Juan Bautista, Ayacucho',
     rating: 4.7,
     reviews: 156,
-    image: 'https://images.pexels.com/photos/8101520/pexels-photo-8101520.jpeg',
+    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723698099-1722988307-4.jpg',
     bio: 'Artista reconocido por sus detallados retablos que narran historias andinas.'
   },
   {
@@ -43,7 +43,7 @@ const artisans = [
     location: 'Huanta, Ayacucho',
     rating: 4.6,
     reviews: 89,
-    image: 'https://images.pexels.com/photos/4498177/pexels-photo-4498177.jpeg',
+    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723696032-1723695948-1723695594-1722961195-1.JPG.jpg',
     bio: 'Ceramista especializada en técnicas precolombinas y diseños contemporáneos.'
   },
   {
@@ -53,7 +53,7 @@ const artisans = [
     location: 'Santillana, Ayacucho',
     rating: 4.8,
     reviews: 112,
-    image: 'https://images.pexels.com/photos/8102319/pexels-photo-8102319.jpeg',
+    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1722963122-1.JPG',
     bio: 'Tejedora experta en alpaca y lana de oveja con diseños únicos.'
   },
   {
@@ -63,7 +63,7 @@ const artisans = [
     location: 'Ayacucho Centro',
     rating: 4.9,
     reviews: 134,
-    image: 'https://images.pexels.com/photos/8101520/pexels-photo-8101520.jpeg',
+    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723619191-Imagen9.png',
     bio: 'Maestro retablista con reconocimientos nacionales e internacionales.'
   }
 ];
@@ -121,9 +121,12 @@ export default function ArtisanGrid() {
   <Link 
     href={`/productos?artisan=${artisan.id}`}
     className="
-      bg-red-700 text-white 
-      hover:bg-red-800 
-      focus:ring-4 focus:ring-red-300
+      /* --- Paleta de Colores Verde Pastel --- */
+      bg-emerald-500 text-white 
+      hover:bg-emerald-600 
+      focus:ring-4 focus:ring-emerald-300
+
+      /* --- Estilos y Transiciones (se mantienen) --- */
       inline-flex items-center justify-center text-center
       font-semibold rounded-md px-4 py-2 
       transition-all duration-300 ease-in-out
@@ -139,24 +142,23 @@ export default function ArtisanGrid() {
   <Link 
     href={`/artesanos/${artisan.id}`}
     className="
+      /* --- Paleta de Colores Verde Pastel (para fondo oscuro) --- */
       bg-transparent
-      border-2 border-red-400
-      text-red-300                  /* <-- ESTA CLASE CONTROLA EL COLOR DE TODO LO DE ADENTRO */
-      hover:bg-red-900/50
-      hover:text-white              /* Opcional: El texto se hace blanco en hover para más contraste */
-      hover:border-red-300
-      focus:ring-4 focus:ring-red-400
+      border-2 border-emerald-400
+      text-emerald-300
+      hover:bg-emerald-400/20  /* <-- Un fondo traslúcido sutil en hover */
+      hover:text-emerald-400
+      hover:border-emerald-200
+      focus:ring-4 focus:ring-emerald-800
+
+      /* --- Estilos y Transiciones (se mantienen) --- */
       inline-flex items-center justify-center text-center
       font-semibold rounded-md px-4 py-2
       transition-all duration-300 ease-in-out
     "
   >
-    {/* Ahora, tanto el ícono como el texto heredarán el color de la clase `text-red-300`
-      y se volverán blancos (`text-white`) al pasar el cursor por encima.
-    */}
-    <p className="text-red-300">
+    {/* El texto hereda el color de `text-emerald-300` y cambia con `hover:text-white` */}
     Ver Perfil
-    </p>
   </Link>
 </Button>
             </div>

@@ -25,8 +25,8 @@ const artisans = {
     location: 'Quinua, Ayacucho',
     rating: 4.8,
     reviews: 124,
-    image: 'https://images.pexels.com/photos/4498177/pexels-photo-4498177.jpeg',
-    coverImage: 'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg',
+    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723620186-66.png',
+    coverImage: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiIg_f7OKPOmQdvcDYMP1wwMJngTxIqtTINS0v7BhW-1v0YgmZRQIaYNSFcOR8JxJeR5m3ClJaev_AZwHvV9F2RWDOcqROt-murJUUBYK3A4AgVi7wBaDOPgN9xPoVHVJEUbuJNwgTpLdfZ/s1600/dsc_0671.jpg',
     bio: 'Especialista en textiles tradicionales ayacuchanos con más de 25 años de experiencia. Aprendí este arte de mi abuela y he dedicado mi vida a preservar y evolucionar estas técnicas ancestrales.',
     story: 'Mi historia con los textiles comenzó cuando era niña, observando a mi abuela tejer en su antiguo telar. Cada pieza que creo lleva consigo no solo los patrones tradicionales de nuestra región, sino también las historias y el significado cultural que han pasado de generación en generación.',
     products: [
@@ -299,10 +299,10 @@ export default function ArtisanProfilePage({ params }: ArtisanProfilePageProps) 
                 </div>
                 <div className="mt-4 sm:mt-0 text-center sm:text-left">
                   <h1 className="text-white text-3xl font-bold text-neutral-100">{artisan.name}</h1>
-                  <p className="text-lg text-neutral-300">{artisan.specialty}</p>
+                  <p className="text-white text-lg text-neutral-300">{artisan.specialty}</p>
                   <div className="mt-2 flex items-center justify-center sm:justify-start">
-                    <MapPin className="h-5 w-5 text-neutral-400" />
-                    <span className="ml-2 text-neutral-300">{artisan.location}</span>
+                    <MapPin className="text-white h-5 w-5 text-neutral-400" />
+                    <span className="text-white ml-2 text-neutral-300">{artisan.location}</span>
                   </div>
                 </div>
               </div>
