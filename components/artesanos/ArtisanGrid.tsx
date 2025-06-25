@@ -13,7 +13,7 @@ const artisans = [
     location: 'Quinua, Ayacucho',
     rating: 4.8,
     reviews: 124,
-    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723620186-66.png',
+    image: 'https://acgnoticias.com/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-19-at-9.58.52-AM-3.jpeg',
     bio: 'Especialista en textiles tradicionales ayacuchanos con más de 25 años de experiencia.'
   },
   {
@@ -23,7 +23,7 @@ const artisans = [
     location: 'Huamanga, Ayacucho',
     rating: 4.9,
     reviews: 98,
-    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723522585-albertof1.png',
+    image: 'https://cdn-3.expansion.mx/dims4/default/77e8e39/2147483647/strip/true/crop/1800x1197+0+0/resize/1800x1197!/format/webp/quality/80/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fc7%2F4e%2F3253ac5b44de81dbc39617b69b1f%2Fsb-8658.JPG',
     bio: 'Maestro tallador de piedra de Huamanga, preservando técnicas ancestrales.'
   },
   {
@@ -33,7 +33,7 @@ const artisans = [
     location: 'San Juan Bautista, Ayacucho',
     rating: 4.7,
     reviews: 156,
-    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723698099-1722988307-4.jpg',
+    image: 'https://i0.wp.com/criterionoticias.wordpress.com/wp-content/uploads/2018/03/profesionalizacic3b3n-artesanos-foto-portada.jpg?fit=1200%2C800&ssl=1',
     bio: 'Artista reconocido por sus detallados retablos que narran historias andinas.'
   },
   {
@@ -43,7 +43,7 @@ const artisans = [
     location: 'Huanta, Ayacucho',
     rating: 4.6,
     reviews: 89,
-    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723696032-1723695948-1723695594-1722961195-1.JPG.jpg',
+    image: 'https://fahho.mx/wp-content/uploads/2021/02/artepopular_FAHHO_SAT.jpg',
     bio: 'Ceramista especializada en técnicas precolombinas y diseños contemporáneos.'
   },
   {
@@ -53,7 +53,7 @@ const artisans = [
     location: 'Santillana, Ayacucho',
     rating: 4.8,
     reviews: 112,
-    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1722963122-1.JPG',
+    image: 'https://cdn.shopify.com/s/files/1/0861/3888/0286/files/Casa_Nochipa_27_480x480.png?v=1718660222',
     bio: 'Tejedora experta en alpaca y lana de oveja con diseños únicos.'
   },
   {
@@ -63,7 +63,7 @@ const artisans = [
     location: 'Ayacucho Centro',
     rating: 4.9,
     reviews: 134,
-    image: 'https://app.artesaniasdeayacucho.pe//files-app/artesano/img//1723619191-Imagen9.png',
+    image: 'https://cdn.shopify.com/s/files/1/0861/3888/0286/files/Casa_Nochipa_26_480x480.png?v=1718660089',
     bio: 'Maestro retablista con reconocimientos nacionales e internacionales.'
   }
 ];
@@ -85,9 +85,6 @@ export default function ArtisanGrid() {
             {/* Overlay content */}
             <div className="absolute bottom-4 left-4 right-4">
               <div className="flex items-center justify-between">
-                <span className="inline-block px-3 py-1 text-xs font-medium bg-gradient-to-r from-primary-500 to-primary-700 text-white rounded-full">
-                  {artisan.specialty}
-                </span>
                 <div className="flex items-center text-white">
                   <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
                   <span className="text-sm font-medium">{artisan.rating}</span>
@@ -98,10 +95,21 @@ export default function ArtisanGrid() {
           
           <div className="p-6">
             <div className="flex justify-between items-start mb-4">
-              <div>
-                <h3 className="text-xl font-bold text-neutral-100 group-hover:text-primary-400 transition-colors">{artisan.name}</h3>
-                <p className="text-neutral-300">{artisan.specialty}</p>
-              </div>
+                  <div className="space-y-2">
+                    <h3 className="
+                        text-xl font-bold text-neutral-100
+                        group-hover:text-emerald-400 transition-colors duration-300
+                      ">
+                      {artisan.name}
+                    </h3>
+                    <p className="
+                        inline-block px-3 py-1 text-xs font-semibold
+                        bg-emerald-500/10 text-emerald-500 
+                        rounded-full ring-1 ring-inset ring-emerald-500/20
+                      ">
+                      {artisan.specialty}
+                    </p>
+                  </div>
               <div className="flex items-center">
                 <Award className="h-5 w-5 text-secondary-400 mr-1" />
                 <span className="text-sm text-neutral-400">({artisan.reviews})</span>

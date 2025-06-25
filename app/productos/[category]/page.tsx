@@ -14,7 +14,7 @@ const productsByCategory = {
       id: 1,
       name: 'Tapiz de Lana Natural',
       price: 180,
-      image: 'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg',
+      image: 'https://i.pinimg.com/236x/64/4b/f1/644bf1323e73959b7803ed5c441bbee5.jpg',
       category: 'Textiles',
       artisan: 'María Quispe'
     },
@@ -22,7 +22,7 @@ const productsByCategory = {
       id: 5,
       name: 'Manta Tradicional Ayacuchana',
       price: 220,
-      image: 'https://images.pexels.com/photos/6045240/pexels-photo-6045240.jpeg',
+      image: 'https://d15yqn4xt8exgp.cloudfront.net/media/products/TTP000285/inka-products-tissu-traditionnel-du-cusco-tisse-main-motifs-ethniques-4-20210925021840.jpeg',
       category: 'Textiles',
       artisan: 'María Quispe'
     },
@@ -30,7 +30,7 @@ const productsByCategory = {
       id: 6,
       name: 'Chal de Alpaca',
       price: 150,
-      image: 'https://images.pexels.com/photos/6045788/pexels-photo-6045788.jpeg',
+      image: 'https://acdn-us.mitiendanube.com/stores/545/007/products/img_70571-48803bbcaebdc106af15920640719748-1024-1024.jpg',
       category: 'Textiles',
       artisan: 'Rosa Mendoza'
     }
@@ -40,7 +40,7 @@ const productsByCategory = {
       id: 3,
       name: 'Cerámica Decorativa',
       price: 150,
-      image: 'https://images.pexels.com/photos/6046220/pexels-photo-6046220.jpeg',
+      image: 'https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_008087/tienda_008087_dbdca40f9861e76e713579c52eb0a3caa478a6f4_producto_large_90.png?not-from-cache-please',
       category: 'Cerámica',
       artisan: 'Ana López'
     },
@@ -48,7 +48,7 @@ const productsByCategory = {
       id: 7,
       name: 'Vasija Ceremonial',
       price: 280,
-      image: 'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg',
+      image: 'https://scontent-lim1-1.xx.fbcdn.net/v/t1.6435-9/51513613_845761779110651_5795160558873346048_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=GE4SwcobafMQ7kNvwGOmB2H&_nc_oc=AdnYOwmiY8Q4HlTtwWcUekskB1IznPoTI8cB6MUzQBTWQin6Oin8lyNMe14JUvX4UaIar7eY0acaxvSwoj3LugDQ&_nc_zt=23&_nc_ht=scontent-lim1-1.xx&_nc_gid=qqPIAkZjQRvmimj4_8WOVw&oh=00_AfM4L1UIGnFbKiuIgxGcnKgaRv3im6Uq0ndiJRC2U8IwfA&oe=6882F1D5',
       category: 'Cerámica',
       artisan: 'Pedro Sánchez'
     },
@@ -56,7 +56,7 @@ const productsByCategory = {
       id: 8,
       name: 'Plato Decorativo',
       price: 120,
-      image: 'https://images.pexels.com/photos/6045240/pexels-photo-6045240.jpeg',
+      image: 'https://ayacuchoemprende.com/wp-content/uploads/2023/11/AYACUMANTA-piedra-de-huamanga-PLATO-artesania-AYACUCHANA.jpg',
       category: 'Cerámica',
       artisan: 'Ana López'
     }
@@ -66,7 +66,7 @@ const productsByCategory = {
       id: 2,
       name: 'Retablo Ayacuchano Tradicional',
       price: 250,
-      image: 'https://images.pexels.com/photos/12913358/pexels-photo-12913358.jpeg',
+      image: 'https://www.huillcaexpedition.com/images/blog/retablo-ayacuchano-1743141563.jpg',
       category: 'Retablos',
       artisan: 'Manuel Huamán'
     },
@@ -74,7 +74,7 @@ const productsByCategory = {
       id: 9,
       name: 'Retablo Navideño',
       price: 320,
-      image: 'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg',
+      image: 'https://musuqwari.com/wp-content/uploads/2023/11/MW-RTRA7-2070-BA_1-600x600.jpg',
       category: 'Retablos',
       artisan: 'Manuel Huamán'
     },
@@ -82,7 +82,7 @@ const productsByCategory = {
       id: 10,
       name: 'Retablo Costumbrista',
       price: 280,
-      image: 'https://images.pexels.com/photos/6045240/pexels-photo-6045240.jpeg',
+      image: 'https://peru.info/archivos/publicacion/67-imagen-176429122017.jpg',
       category: 'Retablos',
       artisan: 'Carlos Flores'
     }
@@ -92,7 +92,7 @@ const productsByCategory = {
       id: 4,
       name: 'Escultura en Piedra de Huamanga',
       price: 320,
-      image: 'https://images.pexels.com/photos/11055526/pexels-photo-11055526.jpeg',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Piedra_de_Huamanga.jpg  ',
       category: 'Tallados',
       artisan: 'José Cárdenas'
     },
@@ -100,7 +100,7 @@ const productsByCategory = {
       id: 11,
       name: 'Figura Decorativa',
       price: 180,
-      image: 'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg',
+      image: 'https://museopedrodeosma.org/wp-content/uploads/2021/03/Arcangel-Miguel_Sala-Piedra-de-Huamanga_003.jpg',
       category: 'Tallados',
       artisan: 'José Cárdenas'
     },
@@ -108,7 +108,7 @@ const productsByCategory = {
       id: 12,
       name: 'Medallón Tallado',
       price: 150,
-      image: 'https://images.pexels.com/photos/6045240/pexels-photo-6045240.jpeg',
+      image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDdhUN86Y5nmp1UQ6mRKWk9eEmV1FR5n8aFKxRjYDcJ_wNPYqI8DXHk8UU57UcEw2mgx3bEaMnZ-zbYa-lrhcph2wHqeLrG6OmYvhylFevGJwPzNVqRaKt78TzB54XJavelQxHhSc-oa0/s1600/Ayacucho+Arte+2.jpg',
       category: 'Tallados',
       artisan: 'Miguel Torres'
     }

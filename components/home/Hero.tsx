@@ -10,21 +10,21 @@ import { cn } from '@/lib/utils';
 const slides = [
   {
     id: 1,
-    image: 'https://images.pexels.com/photos/12456281/pexels-photo-12456281.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: 'https://blog.viajesmachupicchu.travel/wp-content/uploads/2025/04/artesanias-peruanas-portada-1.jpg',
     title: 'Artesanía Peruana Auténtica',
     subtitle: 'Conectando tradición con el mundo moderno',
     cta: 'Explorar Colección'
   },
   {
     id: 2,
-    image: 'https://images.pexels.com/photos/11710100/pexels-photo-11710100.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: 'https://www.ytuqueplanes.com/imagenes//fotos/novedades/b-Artesan%C3%ADa-de-Ayacucho.webp',
     title: 'Descubre el Arte de Ayacucho',
     subtitle: 'Cada pieza cuenta una historia ancestral',
     cta: 'Conocer Artesanos'
   },
   {
     id: 3,
-    image: 'https://images.pexels.com/photos/6045788/pexels-photo-6045788.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: 'https://d1ih8jugeo2m5m.cloudfront.net/2021/08/Manualidades-para-vender-thumbnail.jpg',
     title: 'Personaliza tu Artesanía',
     subtitle: 'Creaciones únicas hechas especialmente para ti',
     cta: 'Personalizar Ahora'

@@ -1,14 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
-// Example categories
 const categories = [
   {
     id: 1,
     name: 'Textiles Ayacuchanos',
     description: 'Mantas, tapices y prendas con diseños tradicionales',
-    image: 'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4DByARMPau5xjuQHyMcNwzVvRwMOBM62GmQ&s',
     count: 24,
     slug: 'textiles'
   },
@@ -16,7 +17,7 @@ const categories = [
     id: 2,
     name: 'Retablos',
     description: 'Cajas escénicas tridimensionales con historias andinas',
-    image: 'https://images.pexels.com/photos/12913358/pexels-photo-12913358.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: 'https://trexperienceperu.com/sites/default/files/retablo_ayacuchano_semana_santa.jpg',
     count: 18,
     slug: 'retablos'
   },
@@ -24,7 +25,7 @@ const categories = [
     id: 3,
     name: 'Tallados en Piedra',
     description: 'Esculturas en piedra de Huamanga con detalles precisos',
-    image: 'https://images.pexels.com/photos/11055526/pexels-photo-11055526.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: 'https://3.bp.blogspot.com/-2qOaDMx0xo8/Ua_cGduIXcI/AAAAAAAAAF4/DBGhfKOoyII/s1600/Aya_feb08-628.jpg',
     count: 15,
     slug: 'tallados'
   },
@@ -32,7 +33,7 @@ const categories = [
     id: 4,
     name: 'Cerámica',
     description: 'Piezas de cerámica con técnicas ancestrales',
-    image: 'https://images.pexels.com/photos/6046220/pexels-photo-6046220.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: 'https://portal.andina.pe/EDPfotografia3/Thumbnail/2019/03/19/000571914W.jpg',
     count: 21,
     slug: 'ceramica'
   }
@@ -40,61 +41,70 @@ const categories = [
 
 export default function CategoriesSection() {
   return (
-    <section className="py-12">
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h2 className="text-3xl font-bold text-neutral-900">Explora por Categorías</h2>
-          <p className="mt-2 text-neutral-600">Descubre la riqueza artesanal de Ayacucho</p>
-        </div>
-        <Link 
-          href="/productos" 
-          className="hidden md:flex items-center text-primary-600 hover:text-primary-700 transition-colors"
-        >
-          Ver todas
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Link>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {categories.map((category) => (
+    <section className="bg-slate-50 py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* --- Encabezado de la Sección --- */}
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">Explora por Categorías</h2>
+            <p className="mt-2 text-lg text-slate-600">Descubre la riqueza y diversidad de la artesanía de Ayacucho.</p>
+          </div>
           <Link 
-            key={category.id} 
-            href={`/productos/${category.slug}`}
-            className="group relative overflow-hidden rounded-lg shadow-sm h-80 transform transition-transform hover:-translate-y-1 hover:shadow-md"
+            href="/productos" 
+            className="hidden md:inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold transition-colors group"
           >
-            <div className="absolute inset-0">
-              <Image
-                src={category.image}
-                alt={category.name}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-            </div>
-            
-            <div className="relative h-full flex flex-col justify-end p-6 text-white">
-              <h3 className="text-xl font-bold mb-2">{category.name}</h3>
-              <p className="text-sm text-white/80 mb-3">{category.description}</p>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">{category.count} productos</span>
-                <span className="flex items-center text-sm font-medium group-hover:underline">
-                  Explorar
-                  <ArrowRight className="ml-1 h-4 w-4 transform transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </div>
+            <span>Ver todos los productos</span>
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
-        ))}
-      </div>
-      
-      <div className="mt-8 text-center md:hidden">
-        <Link 
-          href="/productos" 
-          className="inline-flex items-center text-primary-600 hover:text-primary-700 transition-colors"
-        >
-          Ver todas las categorías
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Link>
+        </div>
+        
+        {/* --- Cuadrícula de Categorías con Diseño "Split" --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {categories.map((category) => (
+            <Link 
+              key={category.id} 
+              href={`/productos?category=${category.slug}`}
+              className="group flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+            >
+              {/* --- Parte Superior: Imagen --- */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden">
+                <Image
+                  src={category.image}
+                  alt={category.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                />
+              </div>
+
+              {/* --- Parte Inferior: Información --- */}
+              <div className="p-6 flex-grow flex flex-col">
+                <h3 className="text-xl font-serif font-bold text-slate-900">{category.name}</h3>
+                <p className="mt-2 text-sm text-slate-600 flex-grow">{category.description}</p>
+                <div className="mt-6 flex justify-between items-center">
+                  <span className="px-3 py-1 text-xs font-semibold bg-slate-100 text-slate-700 rounded-full">
+                    {category.count} productos
+                  </span>
+                  <div className="flex items-center text-sm font-bold text-emerald-600 group-hover:text-emerald-700 transition-colors">
+                    <span>Explorar</span>
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        
+        {/* --- Botón para Móvil --- */}
+        <div className="mt-12 text-center md:hidden">
+          <Link 
+            href="/productos" 
+            className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold transition-colors group"
+          >
+            <span>Ver toda la colección</span>
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
       </div>
     </section>
   );
