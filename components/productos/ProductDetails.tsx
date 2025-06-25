@@ -1,14 +1,21 @@
+// ---- ARCHIVO ACTUALIZADO: `components/productos/ProductDetails.tsx` ----
+
 'use client';
 
+// Importaciones de React y Next.js.
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Star, Heart, Share2, ShoppingCart, Minus, Plus, User, Award, PackageCheck, Wand2 } from 'lucide-react';
+
+// Importación de íconos de la librería lucide-react.
+import { Star, Heart, Share2, ShoppingCart, Minus, Plus, Award, PackageCheck, Wand2 } from 'lucide-react';
+
+// Importaciones de componentes de UI personalizados.
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
-// La interfaz de Props se mantiene igual
+// Define la estructura de las propiedades (props) que espera el componente.
 interface ProductDetailsProps {
   product: {
     id: number | string; name: string; description: string; price: number; rating: number;
@@ -17,11 +24,44 @@ interface ProductDetailsProps {
   };
 }
 
+// =================================================================================
+// NUEVOS DATOS DE EJEMPLO PARA LAS RESEÑAS
+// En una aplicación real, estos datos vendrían de una API.
+// =================================================================================
+const sampleReviews = [
+  {
+    id: 1,
+    author: 'Ana Torres',
+    avatarUrl: 'https://i.pravatar.cc/150?u=a042581f4e29026704d', // URL de avatar de ejemplo
+    rating: 5,
+    date: '15 de junio, 2024',
+    text: '¡Absolutamente impresionante! La calidad y el detalle del retablo superaron mis expectativas. Se nota el amor y la dedicación en cada pincelada. Llegó muy bien empacado.'
+  },
+  {
+    id: 2,
+    author: 'Carlos Mendoza',
+    avatarUrl: 'https://i.pravatar.cc/150?u=a042581f4e29026704e',
+    rating: 4,
+    date: '10 de junio, 2024',
+    text: 'Un producto muy bonito y auténtico. Le doy 4 estrellas solo porque el envío tardó un poco más de lo esperado, pero el tapiz es de una calidad excelente.'
+  },
+  {
+    id: 3,
+    author: 'Lucía Fernández',
+    avatarUrl: 'https://i.pravatar.cc/150?u=a042581f4e29026704f',
+    rating: 5,
+    date: '02 de mayo, 2024',
+    text: 'Compré este retablo como regalo para mis padres y quedaron encantados. Es una verdadera obra de arte que representa nuestra cultura. 100% recomendado.'
+  }
+];
+
 export default function ProductDetails({ product }: ProductDetailsProps) {
+  // Estados del componente (sin cambios)
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isLiked, setIsLiked] = useState(false);
 
+  // Función para manejar la cantidad (sin cambios)
   const handleQuantityChange = (amount: number) => {
     const newQuantity = quantity + amount;
     if (newQuantity >= 1 && newQuantity <= product.stock) {
@@ -33,7 +73,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-16 gap-y-10">
 
-        {/* --- Columna Izquierda: Galería con Filmstrip Vertical --- */}
+        {/* --- Columna Izquierda: Galería (sin cambios) --- */}
         <div className="lg:col-span-3 grid grid-cols-6 gap-4">
           <div className="col-span-1 flex flex-col gap-3">
             {product.images.map((image, index) => (
@@ -47,11 +87,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           </div>
         </div>
 
-        {/* --- Columna Derecha: Flujo de Información Unificado y Sin Bordes --- */}
+        {/* --- Columna Derecha: Flujo de Información --- */}
         <div className="lg:col-span-2">
-          <div className="flex flex-col gap-8"> {/* Aumentamos el espaciado general */}
+          <div className="flex flex-col gap-8">
 
-            {/* Bloque 1: Título, Rating y Acciones Sociales */}
+            {/* Bloque 1: Título, Rating y Acciones Sociales (sin cambios) */}
             <div>
               <h1 className="text-4xl font-extrabold tracking-tight text-neutral-100">{product.name}</h1>
               <div className="mt-4 flex items-center justify-between">
@@ -71,7 +111,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </div>
             </div>
 
-            {/* Bloque 2: Descripción y Detalles en Acordeón sin bordes */}
+            {/* Bloque 2: Descripción y Detalles en Acordeón (sin cambios) */}
             <Accordion type="multiple" className="w-full" defaultValue={['item-1']}>
               <AccordionItem value="item-1" className="border-b-0">
                 <AccordionTrigger className="hover:no-underline text-lg">Descripción</AccordionTrigger>
@@ -94,7 +134,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </AccordionItem>
             </Accordion>
             
-            {/* Bloque 3: Tarjeta del Artesano sin bordes */}
+            {/* Bloque 3: Tarjeta del Artesano (sin cambios) */}
             <div className="bg-neutral-800/50 rounded-2xl p-4">
                <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -116,14 +156,66 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </div>
             </div>
 
-            {/* Bloque 4: Barra de Acciones Flotante y Sin Bordes */}
+            {/* ================================================================================= */}
+            {/* INICIO DE LA NUEVA SECCIÓN DE COMENTARIOS                                         */}
+            {/* ================================================================================= */}
+            <div className="space-y-6 pt-6 border-t border-neutral-800">
+              {/* Encabezado de la sección con título y botón para escribir reseña */}
+              <div className="flex justify-between items-center">
+                <h3 className="text-2xl font-bold text-neutral-100">Opiniones de Clientes</h3>
+                <Button variant="outline" className="hidden sm:inline-flex">Escribe una reseña</Button>
+              </div>
+
+              {/* Lista de comentarios/reseñas */}
+              <div className="space-y-8">
+                {sampleReviews.map((review) => (
+                  <article key={review.id} className="flex items-start gap-4">
+                    {/* Avatar del autor del comentario */}
+                    <Image
+                      src={review.avatarUrl}
+                      alt={`Avatar de ${review.author}`}
+                      width={40}
+                      height={40}
+                      className="rounded-full mt-1"
+                    />
+                    <div className="flex-1">
+                      {/* Nombre del autor y fecha del comentario */}
+                      <div className="flex justify-between items-center">
+                        <p className="font-semibold text-neutral-200">{review.author}</p>
+                        <p className="text-xs text-neutral-500">{review.date}</p>
+                      </div>
+
+                      {/* Estrellas de la calificación específica de esta reseña */}
+                      <div className="flex items-center mt-1 mb-2">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={cn(
+                              'h-4 w-4',
+                              i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-neutral-600'
+                            )}
+                          />
+                        ))}
+                      </div>
+
+                      {/* Texto del comentario */}
+                      <div className="prose prose-sm prose-invert text-neutral-300 max-w-none">
+                        <p>{review.text}</p>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+            {/* ================================================================================= */}
+            {/* FIN DE LA NUEVA SECCIÓN DE COMENTARIOS                                           */}
+            {/* ================================================================================= */}
+
+
+            {/* Bloque 4: Barra de Acciones Flotante y Sin Bordes (sin cambios) */}
             <div className="sticky bottom-4 z-10">
               <div className="bg-neutral-900/60 backdrop-blur-lg rounded-2xl p-5 space-y-4 shadow-2xl shadow-black/30">
-                {/* BOTÓN PRINCIPAL: PERSONALIZAR */}
-                <Button 
-                  size="lg" 
-                  className="w-full h-14 text-lg font-bold text-white bg-gradient-to-br from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-100 animate-pulse-shadow"
-                >
+                <Button size="lg" className="w-full h-14 text-lg font-bold text-white bg-gradient-to-br from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-100 animate-pulse-shadow">
                   <Wand2 className="h-6 w-6 mr-3"/>
                   ¡Personalízalo Ahora!
                 </Button>
@@ -137,7 +229,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   </div>
                 </div>
 
-                {/* BOTÓN SECUNDARIO: AÑADIR AL CARRITO */}
                 <Button size="lg" className="w-full bg-neutral-700 text-neutral-200 hover:bg-neutral-600 active:scale-95">
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   O añadir al carrito
@@ -149,4 +240,4 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       </div>
     </div>
   );
-} 
+}

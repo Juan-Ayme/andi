@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Grid2X2, LayoutList, Filter } from 'lucide-react';
 
 // Valid categories
-const validCategories = ['textiles', 'ceramica', 'retablos', 'tallados'];
+const validCategories = ['textiles', 'ceramica', 'retablos', 'tallados', 'joyeria'];
 
 // Products data by category
 const productsByCategory = {
   textiles: [
     {
-      id: 1,
+      id: 2,
       name: 'Tapiz de Lana Natural',
       price: 180,
       image: 'https://i.pinimg.com/236x/64/4b/f1/644bf1323e73959b7803ed5c441bbee5.jpg',
@@ -63,7 +63,7 @@ const productsByCategory = {
   ],
   retablos: [
     {
-      id: 2,
+      id: 1,
       name: 'Retablo Ayacuchano Tradicional',
       price: 250,
       image: 'https://www.huillcaexpedition.com/images/blog/retablo-ayacuchano-1743141563.jpg',

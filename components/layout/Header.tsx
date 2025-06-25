@@ -17,6 +17,7 @@ const navigation = [
       { name: 'Cerámica', href: '/productos/ceramica' },
       { name: 'Retablos', href: '/productos/retablos' },
       { name: 'Tallados en Piedra', href: '/productos/tallados' },
+      { name: 'Joyería', href: '/productos/joyeria' },
       { name: 'Todos los Productos', href: '/productos' },
     ] 
   },

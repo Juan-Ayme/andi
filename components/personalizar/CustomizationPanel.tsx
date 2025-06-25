@@ -1,234 +1,93 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Slider } from '@/components/ui/slider';
-import { Button } from '@/components/ui/button';
-import { 
-  Palette, 
-  Shapes, 
-  Image as ImageIcon, 
-  Share2,
-  ShoppingCart,
-  Sparkles,
-  Heart
-} from 'lucide-react';
+import { optionsData } from '@/lib/personalizar-data';
+import { Heart, Share2, ShoppingCart, Check, Upload } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-export default function CustomizationPanel() {
-  const [color, setColor] = useState('#8B4513');
-  const [size, setSize] = useState([1]);
-  const [selectedTexture, setSelectedTexture] = useState('Madera');
 
-  const colors = [
-    { name: 'Marrón Tradicional', value: '#8B4513' },
-    { name: 'Caoba', value: '#A0522D' },
-    { name: 'Nogal', value: '#6B4423' },
-    { name: 'Roble', value: '#8B7355' },
-    { name: 'Dorado', value: '#CD853F' },
-    { name: 'Arena', value: '#DEB887' },
-    { name: 'Rojo Ayacuchano', value: '#B22222' },
-    { name: 'Azul Andino', value: '#4682B4' }
-  ];
+interface Props {
+  categoryId: string;
+}
 
-  const textures = ['Madera', 'Piedra', 'Metal', 'Cerámica'];
+export default function CustomizationPanel({ categoryId }: Props) {
+  const [selections, setSelections] = useState<Record<string, any>>({});
+
+  const handleSelection = (optionId: string, value: any) => {
+    setSelections(prev => ({ ...prev, [optionId]: value }));
+  };
+
+  const categoryOptions = optionsData[categoryId] || [];
+  if (categoryOptions.length === 0) {
+    return <div className="p-6 text-center text-neutral-400">No hay opciones de personalización para esta categoría.</div>;
+  }
+
+  // Función para renderizar el control correcto según el tipo de opción
+  const renderOptionControl = (option: any) => {
+    switch (option.type) {
+      case 'color':
+        return <div className="flex flex-wrap gap-3">{option.values.map((color: any) => (<button key={color.value} onClick={() => handleSelection(option.id, color.value)} title={color.label} className="h-9 w-9 rounded-full transition-all duration-200" style={{ backgroundColor: color.value, outline: selections[option.id] === color.value ? `3px solid #10B981` : 'none', outlineOffset: '2px' }}/>))}</div>;
+      case 'swatch':
+        return <div className="grid grid-cols-2 gap-3">{option.values.map((swatch: any) => (<button key={swatch.value} onClick={() => handleSelection(option.id, swatch.value)} className={cn("relative rounded-lg aspect-video overflow-hidden group transition-all duration-200 ring-offset-2 ring-offset-neutral-800", selections[option.id] === swatch.value && 'ring-2 ring-emerald-500')}>{swatch.image && <Image src={swatch.image} alt={swatch.label!} fill className="object-cover group-hover:scale-110 transition-transform duration-300"/>}<div className="absolute inset-0 bg-black/40 flex items-end p-2"><span className="text-xs font-bold text-white">{swatch.label}</span></div></button>))}</div>;
+      
+      case 'select':
+        return (
+          <Select
+            onValueChange={(value) => handleSelection(option.id, value)}
+            value={selections[option.id]}
+          >
+            <SelectTrigger className="w-full mt-1 bg-neutral-800 text-white p-3 h-12 rounded-lg border-neutral-700 border focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-neutral-900">
+              <SelectValue placeholder="Seleccionar una opción..." />
+            </SelectTrigger>
+            {/* CORRECCIÓN DEFINITIVA: Usando un fondo sólido y opaco para el menú */}
+            <SelectContent className="bg-slate-900 border-slate-700 text-white">
+              {option.values.map((choice: any) => (
+                <SelectItem 
+                  key={choice.value} 
+                  value={choice.value}
+                  className="focus:bg-emerald-600 focus:text-white"
+                >
+                  {choice.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        );
+
+      case 'slider':
+        return <div className="py-3"><Slider defaultValue={[50]} max={100} step={1} onValueChange={(value) => handleSelection(option.id, value[0])} className="[&>span:first-child>span]:bg-emerald-500"/></div>;
+      case 'textarea':
+        return <Textarea placeholder={option.values[0].label} onChange={(e) => handleSelection(option.id, e.target.value)} className="bg-neutral-700 border-neutral-600 text-white focus:ring-emerald-500"/>;
+      case 'file':
+        return <Button variant="outline" className="w-full bg-neutral-700 border-neutral-600 hover:bg-neutral-600"><Upload className="h-4 w-4 mr-2" />{option.label}</Button>;
+      default: return null;
+    }
+  };
 
   return (
-    <div className="card-dark p-6">
-      <Tabs defaultValue="color" className="w-full">
-        <TabsList className="grid grid-cols-3 gap-2 mb-6 bg-neutral-800/50 border border-neutral-700">
-          <TabsTrigger 
-            value="color" 
-            className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary-600 data-[state=active]:to-primary-700 data-[state=active]:text-white text-neutral-300"
-          >
-            <Palette className="h-4 w-4" />
-            Color
-          </TabsTrigger>
-          <TabsTrigger 
-            value="size" 
-            className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary-600 data-[state=active]:to-primary-700 data-[state=active]:text-white text-neutral-300"
-          >
-            <Shapes className="h-4 w-4" />
-            Tamaño
-          </TabsTrigger>
-          <TabsTrigger 
-            value="texture" 
-            className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary-600 data-[state=active]:to-primary-700 data-[state=active]:text-white text-neutral-300"
-          >
-            <ImageIcon className="h-4 w-4" />
-            Textura
-          </TabsTrigger>
+    <div className="p-6 bg-neutral-900/50 backdrop-blur-sm border border-neutral-800/80 rounded-2xl">
+      <Tabs defaultValue={categoryOptions[0].id} className="w-full">
+        <TabsList className="grid w-full gap-2 bg-neutral-800/80 p-1.5 rounded-lg" style={{ gridTemplateColumns: `repeat(${categoryOptions.length}, minmax(0, 1fr))` }}>
+          {categoryOptions.map(tab => (<TabsTrigger key={tab.id} value={tab.id} className="group data-[state=active]:bg-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-md text-neutral-300 rounded-md flex items-center gap-2 h-11 transition-colors"><tab.icon className="h-5 w-5" /><span className="text-sm font-semibold">{tab.label}</span></TabsTrigger>))}
         </TabsList>
-
-        <TabsContent value="color" className="space-y-6">
-          <div>
-            <h3 className="text-lg font-medium text-neutral-100 mb-4 flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary-400" />
-              Paleta de Colores
-            </h3>
-            <div className="grid grid-cols-4 gap-3">
-              {colors.map((c) => (
-                <button
-                  key={c.value}
-                  className="group relative w-full aspect-square rounded-lg border-2 transition-all hover:scale-105"
-                  style={{ 
-                    backgroundColor: c.value,
-                    borderColor: color === c.value ? '#0ea5e9' : 'transparent'
-                  }}
-                  onClick={() => setColor(c.value)}
-                  title={c.name}
-                >
-                  {color === c.value && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-4 h-4 bg-white rounded-full shadow-lg"></div>
-                    </div>
-                  )}
-                </button>
-              ))}
-            </div>
-            <div className="mt-4 p-3 bg-neutral-800/50 rounded-lg border border-neutral-700">
-              <p className="text-sm text-neutral-300">
-                Color seleccionado: <span className="font-medium text-neutral-100">{colors.find(c => c.value === color)?.name}</span>
-              </p>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="size" className="space-y-6">
-          <div>
-            <h3 className="text-lg font-medium text-neutral-100 mb-4 flex items-center gap-2">
-              <Shapes className="h-5 w-5 text-secondary-400" />
-              Dimensiones
-            </h3>
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium text-neutral-200 mb-2 block">
-                  Altura: {(size[0] * 40).toFixed(0)}cm
-                </label>
-                <Slider
-                  value={size}
-                  onValueChange={setSize}
-                  min={0.5}
-                  max={2}
-                  step={0.1}
-                  className="w-full"
-                />
-              </div>
-              <div className="grid grid-cols-3 gap-3 mt-4">
-                {[
-                  { label: 'Pequeño', value: 0.7, size: '28cm' },
-                  { label: 'Mediano', value: 1.0, size: '40cm' },
-                  { label: 'Grande', value: 1.5, size: '60cm' }
-                ].map((preset) => (
-                  <button
-                    key={preset.label}
-                    onClick={() => setSize([preset.value])}
-                    className={`p-3 rounded-lg border transition-all ${
-                      Math.abs(size[0] - preset.value) < 0.1
-                        ? 'border-primary-500 bg-primary-500/20 text-primary-300'
-                        : 'border-neutral-700 bg-neutral-800/50 text-neutral-300 hover:border-neutral-600'
-                    }`}
-                  >
-                    <div className="text-sm font-medium">{preset.label}</div>
-                    <div className="text-xs text-neutral-400">{preset.size}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="texture" className="space-y-6">
-          <div>
-            <h3 className="text-lg font-medium text-neutral-100 mb-4 flex items-center gap-2">
-              <ImageIcon className="h-5 w-5 text-accent-400" />
-              Material y Acabado
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {textures.map((texture) => (
-                <button
-                  key={texture}
-                  onClick={() => setSelectedTexture(texture)}
-                  className={`p-4 rounded-lg border transition-all ${
-                    selectedTexture === texture
-                      ? 'border-primary-500 bg-primary-500/20 text-primary-300'
-                      : 'border-neutral-700 bg-neutral-800/50 text-neutral-300 hover:border-neutral-600 hover:bg-neutral-700/50'
-                  }`}
-                >
-                  <div className="text-center">
-                    <div className="text-lg font-medium">{texture}</div>
-                    <div className="text-xs text-neutral-400 mt-1">
-                      {texture === 'Madera' && 'Tradicional'}
-                      {texture === 'Piedra' && 'Huamanga'}
-                      {texture === 'Metal' && 'Bronce'}
-                      {texture === 'Cerámica' && 'Artesanal'}
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </TabsContent>
-      </Tabs>
-
-      <div className="mt-8 space-y-4">
-        <div className="p-4 bg-gradient-to-r from-neutral-800/50 to-neutral-800/30 rounded-lg border border-neutral-700">
-          <h4 className="text-lg font-bold text-neutral-100 mb-2">Resumen de Personalización</h4>
-          <div className="space-y-1 text-sm text-neutral-300">
-            <p>• Color: {colors.find(c => c.value === color)?.name}</p>
-            <p>• Tamaño: {(size[0] * 40).toFixed(0)}cm de altura</p>
-            <p>• Material: {selectedTexture}</p>
-          </div>
-          <div className="mt-3 text-right">
-            <span className="text-2xl font-bold text-primary-400">S/ 280.00</span>
-            <p className="text-xs text-neutral-400">Precio estimado</p>
-          </div>
+        <div className="mt-6">
+          {categoryOptions.map(tab => (<TabsContent key={tab.id} value={tab.id} className="mt-0"><Accordion type="multiple" defaultValue={tab.options.map(opt => opt.id)} className="w-full space-y-3">{tab.options.map(option => (<AccordionItem key={option.id} value={option.id} className="bg-neutral-800/50 rounded-xl border-none"><AccordionTrigger className="px-5 hover:no-underline font-semibold text-neutral-100">{option.label}</AccordionTrigger><AccordionContent className="px-5 pt-2 pb-5">{renderOptionControl(option)}</AccordionContent></AccordionItem>))}</Accordion></TabsContent>))}
         </div>
-{/* --- Grupo de Botones Secundarios --- */}
-<div className="flex gap-3">
-  {/* Botón Guardar: Outline que se rellena en hover */}
-  <Button 
-    variant="outline"
-    className="
-      flex-1 border-2 border-red-700 text-red-700 
-      hover:bg-red-700 hover:text-white
-      focus:ring-red-300 transition-colors duration-300
-    "
-  >
-    <Heart className="h-4 w-4 mr-2" />
-    Guardar
-  </Button>
-  
-  {/* Botón Compartir: Mismo estilo que Guardar para consistencia */}
-  <Button 
-    variant="outline" 
-    className="
-      flex-1 border-2 border-red-700 text-red-700 
-      hover:bg-red-700 hover:text-white
-      focus:ring-red-300 transition-colors duration-300
-    "
-  >
-    <Share2 className="h-4 w-4 mr-2" />
-    Compartir
-  </Button>
-</div>
-
-{/* --- Botón de Acción Principal --- */}
-<Button className="
-  w-full bg-red-700 text-white text-lg font-bold
-  hover:bg-red-800 
-  focus:ring-4 focus:ring-red-300
-  transition-all duration-300 ease-in-out
-  shadow-md hover:shadow-lg transform hover:-translate-y-0.5
-  py-4
-">
-  <ShoppingCart className="h-5 w-5 mr-2" />
-  Añadir al Carrito
-</Button>
-
-
-        <p className="text-xs text-neutral-400 text-center">
-          * El precio final puede variar según las personalizaciones seleccionadas
-        </p>
+      </Tabs>
+      <div className="mt-8 pt-6 border-t border-neutral-700 space-y-4">
+        <div className="text-right"><span className="text-3xl font-bold text-emerald-400">S/ 350.00</span><p className="text-xs text-neutral-400">Precio estimado</p></div>
+        <div className="space-y-3 pt-2">
+          <Button size="lg" className="w-full h-12 text-base font-bold text-white bg-gradient-to-br from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-100"><ShoppingCart className="h-5 w-5 mr-3"/>Añadir al Carrito</Button>
+          <div className="flex gap-3"><Button variant="outline" className="flex-1 bg-transparent border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white hover:border-neutral-600"><Heart className="h-4 w-4 mr-2" /> Guardar</Button><Button variant="outline" className="flex-1 bg-transparent border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white hover:border-neutral-600"><Share2 className="h-4 w-4 mr-2" /> Compartir</Button></div>
+        </div>
       </div>
     </div>
   );

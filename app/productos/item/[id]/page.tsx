@@ -1,6 +1,9 @@
+// ---- PRIMER ARCHIVO: `app/productos/[id]/page.tsx` ----
+
+// Importa el componente que se encargará de renderizar los detalles visuales del producto.
 import ProductDetails from '@/components/productos/ProductDetails';
 
-// Example products data - in a real app, this would come from an API or database
+// Datos de ejemplo para los productos. En una aplicación real, esto vendría de una API o una base de datos.
 const products = [
   {
     id: 1,
@@ -17,9 +20,10 @@ const products = [
       rating: 4.9
     },
     images: [
-      'https://images.pexels.com/photos/12913358/pexels-photo-12913358.jpeg',
-      'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg',
-      'https://images.pexels.com/photos/11055526/pexels-photo-11055526.jpeg'
+      'https://musuqwari.com/wp-content/uploads/2023/11/MW-RTRA5-2575-CL_1.jpg',
+      'https://musuqwari.com/wp-content/uploads/2023/11/MW-RTRA5-2575-CL_5.jpg',
+      'https://musuqwari.com/wp-content/uploads/2023/11/MW-RTRA5-2575-CL_2.jpg',
+      'https://musuqwari.com/wp-content/uploads/2023/11/MW-RTRA5-2575-CL_3.jpg'
     ],
     details: [
       'Dimensiones: 40cm x 60cm',
@@ -44,9 +48,9 @@ const products = [
       rating: 4.8
     },
     images: [
-      'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg',
-      'https://images.pexels.com/photos/6045240/pexels-photo-6045240.jpeg',
-      'https://images.pexels.com/photos/6045788/pexels-photo-6045788.jpeg'
+      'https://images1.novica.net/pictures/4/p250393_2_800.jpg',
+      'https://images1.novica.net/pictures/4/p250393_2_800.jpg',
+      'https://images1.novica.net/pictures/4/p250393_2b_800.jpg'
     ],
     details: [
       'Dimensiones: 100cm x 150cm',
@@ -77,18 +81,34 @@ const products = [
   }
 ];
 
+/**
+ * Función de Next.js (App Router) para generar rutas estáticas en tiempo de compilación (build time).
+ * Crea una página HTML pre-renderizada para cada producto basándose en su 'id'.
+ * Esto mejora el rendimiento y el SEO.
+ * @returns Un array de objetos, donde cada objeto tiene una propiedad 'id' que es el identificador del producto.
+ */
 export function generateStaticParams() {
+  // Mapea el array de productos para crear los parámetros de las rutas.
   return products.map((product) => ({
-    id: product.id.toString()
+    id: product.id.toString() // El id debe ser un string para la URL.
   }));
 }
 
+/**
+ * Componente de página para mostrar un producto individual.
+ * Next.js lo renderizará cuando un usuario visite una URL como "/productos/1".
+ * @param params - Objeto que contiene los parámetros de la ruta dinámica, en este caso { id: string }.
+ * @returns El JSX de la página del producto o una página de "no encontrado".
+ */
 export default function ProductPage({ params }: { params: { id: string } }) {
+  // Busca el producto en el array `products` cuyo id coincida con el de los parámetros de la URL.
   const product = products.find(p => p.id.toString() === params.id);
 
+  // Si no se encuentra el producto (por ejemplo, una URL con un ID que no existe), muestra un mensaje de error.
   if (!product) {
     return (
       <div className="min-h-screen pt-16 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
+        {/* Patrón de fondo para decorar */}
         <div className="absolute inset-0 bg-[url('/patterns/inca-pattern.svg')] opacity-5"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
@@ -100,5 +120,6 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     );
   }
 
+  // Si se encuentra el producto, renderiza el componente `ProductDetails` y le pasa todos los datos del producto encontrado.
   return <ProductDetails product={product} />;
 }

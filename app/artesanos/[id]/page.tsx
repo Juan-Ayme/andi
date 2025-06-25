@@ -53,7 +53,10 @@ const artisans = {
       'Tintes naturales tradicionales',
       'Iconografía tradicional ayacuchana',
       'Técnicas de tejido fino'
-    ]
+    ],
+    email: 'maria.quispe@email.com',
+    phone: '999111222',
+    workshops: [],
   },
   '2': {
     id: 2,
@@ -90,7 +93,10 @@ const artisans = {
       'Técnicas de pulido ancestrales',
       'Diseños geométricos andinos',
       'Escultura figurativa'
-    ]
+    ],
+    email: 'jose.cardenas@email.com',
+    phone: '999222333',
+    workshops: [],
   },
   '3': {
     id: 3,
@@ -127,7 +133,10 @@ const artisans = {
       'Modelado en pasta',
       'Pintura a mano alzada',
       'Narrativa visual andina'
-    ]
+    ],
+    email: 'manuel.huaman@email.com',
+    phone: '999333444',
+    workshops: [],
   },
   '4': {
     id: 4,
@@ -164,7 +173,10 @@ const artisans = {
       'Técnicas de cocción ancestrales',
       'Decoración con engobes naturales',
       'Diseños geométricos tradicionales'
-    ]
+    ],
+    email: 'ana.lopez@email.com',
+    phone: '999444555',
+    workshops: [],
   },
   '5': {
     id: 5,
@@ -201,7 +213,10 @@ const artisans = {
       'Hilado a rueca tradicional',
       'Tintes naturales de plantas',
       'Diseños iconográficos andinos'
-    ]
+    ],
+    email: 'rosa.mendoza@email.com',
+    phone: '999555666',
+    workshops: [],
   },
   '6': {
     id: 6,
@@ -238,7 +253,10 @@ const artisans = {
       'Figuras en pasta de papa',
       'Policromía tradicional',
       'Narrativa religiosa y costumbrista'
-    ]
+    ],
+    email: 'carlos.flores@email.com',
+    phone: '999666777',
+    workshops: [],
   }
 };
 
