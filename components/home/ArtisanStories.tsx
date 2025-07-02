@@ -1,141 +1,122 @@
+// CORRECCIÓN: Se quitó el guion de 'use-client'. Debe ser 'use client'.
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 
-// Example artisan stories
 const artisans = [
   {
     id: 1,
     name: 'María Quispe',
-    specialty: 'Textiles',
+    specialty: 'Textiles de Alta Costura',
     image: 'https://images.pexels.com/photos/4498177/pexels-photo-4498177.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    story: 'María aprendió a tejer a los 7 años con su abuela. Sus diseños combinan símbolos ancestrales con interpretaciones contemporáneas. Cada uno de sus textiles cuenta una historia única de la cosmovisión andina.',
+    story: 'Desde niña, María aprendió de su abuela a tejer historias en tela. Hoy, sus diseños combinan símbolos ancestrales con una estética contemporánea, creando piezas únicas que narran la cosmovisión andina.',
     location: 'Quinua, Ayacucho',
-    yearsOfExperience: 25
   },
   {
     id: 2,
     name: 'José Cárdenas',
-    specialty: 'Tallados en Piedra',
+    specialty: 'Escultura en Piedra de Huamanga',
     image: 'https://images.pexels.com/photos/8102319/pexels-photo-8102319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    story: 'José es un maestro en el tallado de piedra de Huamanga, una tradición familiar que se remonta a cinco generaciones. Su precisión y creatividad han llevado sus obras a exhibiciones internacionales.',
+    story: 'Como maestro de quinta generación, José libera figuras de la Piedra de Huamanga con una precisión legendaria. Su trabajo, que ha llegado a galerías internacionales, es un puente entre el pasado y el presente.',
     location: 'Huamanga, Ayacucho',
-    yearsOfExperience: 32
   },
   {
     id: 3,
     name: 'Manuel Huamán',
-    specialty: 'Retablos',
+    specialty: 'Maestro de Retablos',
     image: 'https://images.pexels.com/photos/8101520/pexels-photo-8101520.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    story: 'Manuel es reconocido por sus detallados retablos que plasman escenas cotidianas y festividades andinas. Su técnica única combina materiales tradicionales con innovaciones propias.',
+    story: 'Los retablos de Manuel son universos en miniatura, llenos de color y vida. Plasman con detalle y cariño las festividades y la vida cotidiana de los Andes, combinando técnicas tradicionales con su innovadora visión.',
     location: 'San Juan Bautista, Ayacucho',
-    yearsOfExperience: 28
   }
 ];
 
 export default function ArtisanStories() {
-  const [activeArtisan, setActiveArtisan] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev === artisans.length - 1 ? 0 : prev + 1));
+    }, 8000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goToPrevious = () => setCurrentIndex((prev) => (prev === 0 ? artisans.length - 1 : prev - 1));
+  const goToNext = () => setCurrentIndex((prev) => (prev === artisans.length - 1 ? 0 : prev + 1));
 
   return (
-    <section className="py-12">
-      <div className="flex justify-between items-center mb-12">
-        <div>
-          <h2 className="text-3xl font-bold text-neutral-900">Conoce a Nuestros Artesanos</h2>
-          <p className="mt-2 text-neutral-600">Las manos talentosas detrás de cada pieza</p>
+    <section className="bg-slate-50 py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+            Manos que Cuentan Historias
+          </h2>
+          <p className="mt-4 text-lg text-slate-600">
+            Detrás de cada obra maestra hay una vida de dedicación. Conoce a los guardianes de nuestra tradición.
+          </p>
         </div>
-        <Link 
-          href="/artesanos" 
-          className="hidden md:flex items-center text-primary-600 hover:text-primary-700 transition-colors"
-        >
-          Conocer a todos
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Link>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* Artisan image */}
-        <div className="relative h-96 lg:h-full rounded-lg overflow-hidden">
-          {artisans.map((artisan, index) => (
+
+        <div className="relative max-w-5xl mx-auto">
+          <div className="overflow-hidden">
             <div 
-              key={artisan.id}
-              className={cn(
-                "absolute inset-0 transition-opacity duration-500",
-                activeArtisan === index ? "opacity-100" : "opacity-0"
-              )}
+              className="flex transition-transform duration-700 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              <Image
-                src={artisan.image}
-                alt={artisan.name}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-              
-              <div className="absolute bottom-0 left-0 p-6 text-white">
-                <h3 className="text-2xl font-bold">{artisan.name}</h3>
-                <p className="text-white/80">{artisan.specialty}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Artisan stories */}
-        <div className="flex flex-col space-y-6">
-          {artisans.map((artisan, index) => (
-            <div 
-              key={artisan.id}
-              className={cn(
-                "bg-white p-6 rounded-lg border transition-all cursor-pointer",
-                activeArtisan === index 
-                  ? "border-primary-500 shadow-md" 
-                  : "border-neutral-200 hover:border-primary-300"
-              )}
-              onClick={() => setActiveArtisan(index)}
-            >
-              <div className="flex items-center mb-4">
-                <div className="relative h-12 w-12 rounded-full overflow-hidden mr-4">
-                  <Image
-                    src={artisan.image}
-                    alt={artisan.name}
-                    fill
-                    className="object-cover"
-                  />
+              {artisans.map((artisan) => (
+                <div key={artisan.id} className="w-full flex-shrink-0 px-2">
+                  <div className="bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                    <div className="p-8 sm:p-10 lg:p-12 flex flex-col">
+                      <div>
+                        <p className="text-sm font-semibold text-emerald-600 uppercase tracking-wider">{artisan.specialty}</p>
+                        <h3 className="font-playfair text-3xl lg:text-4xl font-bold text-slate-900 mt-2">{artisan.name}</h3>
+                        <div className="flex items-center text-sm text-slate-500 mt-2">
+                          <MapPin className="h-4 w-4 mr-1.5" />
+                          {artisan.location}
+                        </div>
+                        <p className="mt-6 text-slate-600 leading-relaxed text-base">
+                          {artisan.story}
+                        </p>
+                      </div>
+                      <div className="mt-8">
+                        <Link 
+                          href={`/artesanos/${artisan.id}`}
+                          className="inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-emerald-600 rounded-lg shadow-md hover:bg-emerald-700 transition-transform transform hover:scale-105"
+                        >
+                          Explorar sus obras
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="relative h-80 md:h-full min-h-[300px]">
+                       <Image
+                        src={artisan.image}
+                        alt={artisan.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-lg font-medium text-neutral-900">{artisan.name}</h4>
-                  <p className="text-sm text-neutral-600">{artisan.specialty} • {artisan.location}</p>
-                </div>
-              </div>
-              
-              <p className="text-neutral-700 mb-4">
-                {artisan.story}
-              </p>
-              
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-neutral-500">{artisan.yearsOfExperience} años de experiencia</span>
-                <Link 
-                  href={`/artesanos/${artisan.id}`}
-                  className="text-sm font-medium text-primary-600 hover:text-primary-700 flex items-center"
-                >
-                  Ver perfil
-                  <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
           
-          <div className="text-center lg:hidden mt-4">
-            <Link 
-              href="/artesanos" 
-              className="inline-flex items-center text-primary-600 hover:text-primary-700 transition-colors"
-            >
-              Conocer a todos los artesanos
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <button onClick={goToPrevious} className="p-2 rounded-full text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition-colors" aria-label="Artesano anterior">
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <div className="flex gap-2">
+              {artisans.map((_, index) => (
+                <button key={index} onClick={() => setCurrentIndex(index)} className={cn("h-2 rounded-full transition-all", currentIndex === index ? "w-6 bg-emerald-600" : "w-2 bg-slate-300 hover:bg-slate-400")} aria-label={`Ir a la historia ${index + 1}`} />
+              ))}
+            </div>
+            <button onClick={goToNext} className="p-2 rounded-full text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition-colors" aria-label="Siguiente artesano">
+              <ChevronRight className="h-6 w-6" />
+            </button>
           </div>
         </div>
       </div>

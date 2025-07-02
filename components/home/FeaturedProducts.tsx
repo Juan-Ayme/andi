@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Heart, ShoppingCart, Eye } from 'lucide-react';
+import { ArrowRight, Heart, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-// Interfaz y datos de ejemplo
+// Interfaz y datos de ejemplo (sin cambios)
 interface Product {
   id: number;
   name: string;
@@ -66,12 +66,14 @@ export default function FeaturedProducts() {
   };
 
   return (
-    <section className="bg-slate-50 py-20 sm:py-28">
+    // AJUSTE: Padding reducido en móvil para mejor visualización
+    <section className="bg-slate-50 py-16 sm:py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-end mb-10">
           <div>
-            <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">Productos Destacados</h2>
-            <p className="mt-2 text-lg text-slate-600">Una selección curada de nuestras piezas más excepcionales.</p>
+            {/* AJUSTE: Tamaño de fuente responsive */}
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Productos Destacados</h2>
+            <p className="mt-2 text-md sm:text-lg text-slate-600">Una selección curada de nuestras piezas más excepcionales.</p>
           </div>
           <Link 
             href="/productos" 
@@ -88,7 +90,7 @@ export default function FeaturedProducts() {
               key={product.id}
               className="group relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg bg-neutral-800 transition-shadow duration-300 hover:shadow-2xl"
             >
-              {/* Capa 1: Imagen del Producto */}
+              {/* Capa 1: Imagen del Producto (Sin cambios) */}
               <Image
                 src={product.image}
                 alt={product.name}
@@ -97,18 +99,21 @@ export default function FeaturedProducts() {
                 className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
               />
               
-              {/* Capa 2: Gradiente que aparece en hover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
+              {/* Capa 2: Gradiente para asegurar legibilidad */}
+              {/* AJUSTE: El gradiente es siempre visible. En escritorio, se hace más sutil y se intensifica en hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent md:bg-gradient-to-t md:from-black/80 md:via-black/40 md:to-transparent md:opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
 
-              {/* Capa 3: Contenido que aparece en hover */}
-              <div className="absolute inset-0 flex flex-col justify-between p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              {/* Capa 3: Contenido de texto y botones */}
+              {/* AJUSTE: El contenido es visible por defecto y se oculta en escritorio para activarse con hover */}
+              <div className="absolute inset-0 flex flex-col justify-between p-5 transition-opacity duration-500 md:opacity-0 group-hover:opacity-100">
                 
                 {/* -- Contenido Superior (Acciones rápidas) -- */}
                 <div className="flex justify-between items-start">
-                  <Link href={`/productos?category=${product.category}`} className="text-xs font-bold bg-white/20 backdrop-blur-sm text-emerald-600 px-3 py-1 rounded-full hover:bg-white/30 transition-colors">
+                  <Link href={`/productos?category=${product.category}`} className="text-xs font-bold bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full hover:bg-white/30 transition-colors">
                     {product.category}
                   </Link>
-                  <div className="flex flex-col gap-2 transform translate-x-4 group-hover:translate-x-0 transition-transform duration-300" style={{ transitionDelay: `${200 + index * 50}ms` }}>
+                  {/* AJUSTE: Las transiciones ahora no dependen del hover para su estado inicial */}
+                  <div className="flex flex-col gap-2 md:transform md:translate-x-4 group-hover:translate-x-0 transition-transform duration-300" style={{ transitionDelay: `${200 + index * 50}ms` }}>
                      <button
                         onClick={() => toggleLike(product.id)}
                         aria-label="Añadir a favoritos"
@@ -123,10 +128,11 @@ export default function FeaturedProducts() {
                 </div>
 
                 {/* -- Contenido Inferior (Información y CTA) -- */}
-                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300" style={{ transitionDelay: `${100 + index * 50}ms` }}>
+                 {/* AJUSTE: Las transiciones ahora no dependen del hover para su estado inicial */}
+                <div className="md:transform md:translate-y-4 group-hover:translate-y-0 transition-transform duration-300" style={{ transitionDelay: `${100 + index * 50}ms` }}>
                   <div>
                     <h3 className="text-lg font-bold text-white leading-snug" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>{product.name}</h3>
-                    <p className="text-white text-sm font-medium text-neutral-300">Por {product.artisan}</p>
+                    <p className="text-sm font-medium text-neutral-300">Por {product.artisan}</p>
                   </div>
                   <div className="mt-4 flex justify-between items-center">
                      <p className="text-xl font-semibold text-emerald-400" style={{ textShadow: '0 1px 5px rgba(0,0,0,0.7)' }}>S/ {product.price.toFixed(2)}</p>

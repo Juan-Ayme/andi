@@ -15,10 +15,20 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
 });
 
+// --- INICIO DE LA CORRECCIÓN ---
 export const metadata: Metadata = {
   title: 'ArteAndino.pe | Artesanía de Ayacucho, Perú',
   description: 'Descubre auténtica artesanía ayacuchana personalizada, conectando directamente con artesanos peruanos y preservando el patrimonio cultural andino.',
+  
+  // AÑADIR ESTO: La configuración del viewport es crucial para la responsividad
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1, // Opcional: previene que los usuarios hagan zoom accidentalmente
+  },
 };
+// --- FIN DE LA CORRECCIÓN ---
+
 
 export default function RootLayout({
   children,
@@ -31,7 +41,8 @@ export default function RootLayout({
         <Providers>
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-grow pt-5">
+            {/* AJUSTE: He eliminado el "pt-5" de aquí para que el Hero ocupe toda la pantalla sin margen superior */}
+            <main className="flex-grow">
               {children}
             </main>
             <Footer />

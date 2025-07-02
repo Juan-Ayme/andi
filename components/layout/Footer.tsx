@@ -51,6 +51,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/precios" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
+                  Planes para Artesanos
+                </Link>
+              </li>
+              <li>
                 <Link href="/personalizar" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
                   Personalizar
                 </Link>
