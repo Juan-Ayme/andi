@@ -22,6 +22,7 @@ const navigation = [
     ] 
   },
   { name: 'Artesanos', href: '/artesanos' },
+  { name: 'Precios', href: '/precios' },
   { name: 'Personalizar', href: '/personalizar' },
   { name: 'Sobre Nosotros', href: '/nosotros' },
 ];
