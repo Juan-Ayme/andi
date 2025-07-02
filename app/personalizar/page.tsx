@@ -32,7 +32,7 @@ const validCategories: Category[] = [
   { id: 'textiles', name: 'Textiles', image: 'https://scontent-lim1-1.xx.fbcdn.net/v/t1.6435-9/60168890_365816247379014_1582626239472992256_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHlYoxQaRRFkjFl57vbU_dsqK6waQJtGq2orrBpAm0arSBznEe4oTAS4PuWfrI3NnqXI_NU1Qr90rh-_0F2JxhC&_nc_ohc=v32LHzeDzPoQ7kNvwHCzeRu&_nc_oc=Adnkn1R-nmOaoIwquSWtLCgmkxibEC248zULaEltzsjs3a7Rf1dePolSwiM82XR-9IV6pKAU0qonol2Wwf2QHdSl&_nc_zt=23&_nc_ht=scontent-lim1-1.xx&_nc_gid=ooVh7Yy5q8FK8n3_lZiUyg&oh=00_AfOXniLGQCFSQMp60gqpUWJ4AjWjGZru0ITZiLMK3FqFdA&oe=6883E6EC', modelPath: '/models/textil.glb' },
   { id: 'ceramica', name: 'Cerámica', image: 'https://images.pexels.com/photos/716107/pexels-photo-716107.jpeg', modelPath: '/models/ceramica.glb' },
   { id: 'tallados', name: 'Tallados', image: 'https://arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/ZNYJC63G5JA75PZQZCX2HDI3HQ.jpg', modelPath: '/models/piedra.glb' },
-  { id: 'joyeria', name: 'Joyería', image: 'https://p16-common-sign-va.tiktokcdn-us.com/tos-maliva-p-0068/ockZpWDrEFAeIACVdCESskIJCeRrfjCqP1Wigp~tplv-tiktokx-origin.image?dr=9636&x-expires=1750993200&x-signature=sePGWnmEbeyaubIXNkPOzASCUAQ%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=55bbe6a9&idc=useast5', modelPath: '/models/joyeria.glb' },
+  { id: 'joyeria', name: 'Joyería', image: 'https://thumbs.dreamstime.com/b/anillos-de-perlas-cadenas-doradas-fondo-joyer%C3%ADa-lujo-muchos-elementos-antiguos-y-objetos-joyas-233467452.jpg', modelPath: '/models/joyeria.glb' },
 ];
 
 // Precargamos los modelos

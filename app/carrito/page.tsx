@@ -54,8 +54,8 @@ const PaymentMethodIcons = () => (
 // --- Componente principal ---
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([
-    { id: 1, name: 'Retablo Ayacuchano Tradicional', price: 250, quantity: 1, image: 'https://images.pexels.com/photos/12913358/pexels-photo-12913358.jpeg', artisan: 'Manuel Huamán' },
-    { id: 2, name: 'Tapiz de Lana Natural', price: 180, quantity: 2, image: 'https://images.pexels.com/photos/6045237/pexels-photo-6045237.jpeg', artisan: 'María Quispe' }
+    { id: 1, name: 'Retablo Ayacuchano Tradicional', price: 250, quantity: 1, image: 'https://www.huillcaexpedition.com/images/blog/retablo-ayacuchano-1743141563.jpg', artisan: 'Manuel Huamán' },
+    { id: 2, name: 'Tapiz de Lana Natural', price: 180, quantity: 2, image: 'https://i.pinimg.com/236x/64/4b/f1/644bf1323e73959b7803ed5c441bbee5.jpg', artisan: 'María Quispe' }
   ]);
 
   const [promoCode, setPromoCode] = useState('');

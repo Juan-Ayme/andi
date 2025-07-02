@@ -56,9 +56,9 @@ export const optionsData: CategoryOptions = {
     { 
       id: 'material', label: 'Material', icon: Upload, options: [
         { id: 'fiber', label: 'Material Principal', type: 'swatch', values: [
-          { value: 'algodon_pima', label: 'Algodón Pima', image: 'https://images.pexels.com/photos/4132845/pexels-photo-4132845.jpeg' }, 
-          { value: 'lana_alpaca', label: 'Lana de Alpaca', image: 'https://images.pexels.com/photos/1577943/pexels-photo-1577943.jpeg' }, 
-          { value: 'lana_oveja', label: 'Lana de Oveja', image: 'https://images.pexels.com/photos/6045788/pexels-photo-6045788.jpeg' }
+          { value: 'algodon_pima', label: 'Algodón Pima', image: 'https://cdn.shopify.com/s/files/1/0466/4492/0476/files/Algodon_pima-09.jpg?v=1623253624' }, 
+          { value: 'lana_alpaca', label: 'Lana de Alpaca', image: 'https://www.barubaru.pe/cdn/shop/products/20220801_150438.jpg?v=1659389834' }, 
+          { value: 'lana_oveja', label: 'Lana de Oveja', image: 'https://dcdn-us.mitiendanube.com/stores/001/152/166/products/20220528_125226-30e59a88e0f823a75316547164972290-640-0.jpg' }
         ]},
         { id: 'baseColor', label: 'Color Base', type: 'color', values: [
           { value: '#FFFFFF', label: 'Blanco Natural' }, { value: '#F5F5DC', label: 'Beige Crudo' }, { value: '#A7D8A5', label: 'Verde Eucalipto' }, { value: '#EC5800', label: 'Rojo Cochinilla' }, { value: '#343B53', label: 'Azul Añil' }
@@ -170,9 +170,9 @@ export const optionsData: CategoryOptions = {
         { value: 'collar', label: 'Collar' }, { value: 'pulsera', label: 'Pulsera' }, { value: 'aretes', label: 'Aretes' }, { value: 'anillo', label: 'Anillo' }, { value: 'dije', label: 'Dije (sin cadena)'}
       ]},
       { id: 'metal', label: 'Material Principal', type: 'swatch', values: [
-        { value: 'plata_950', label: 'Plata 950', image: 'https://images.pexels.com/photos/284952/pexels-photo-284952.jpeg' }, 
-        { value: 'plata_quemada', label: 'Plata Quemada', image: 'https://images.pexels.com/photos/1458916/pexels-photo-1458916.jpeg'},
-        { value: 'bano_oro', label: 'Baño de Oro 18k', image: 'https://images.pexels.com/photos/2659175/pexels-photo-2659175.jpeg' }
+        { value: 'plata_950', label: 'Plata 950', image: 'https://i.etsystatic.com/12039407/r/il/9f00b5/1024059439/il_fullxfull.1024059439_41lj.jpg' }, 
+        { value: 'plata_quemada', label: 'Plata Quemada', image: 'https://www.belyfashion.com/Content/img/Articulos/25HSJ_19000101000000..jpg'},
+        { value: 'bano_oro', label: 'Baño de Oro 18k', image: 'https://saharajoyas.cl/cdn/shop/articles/Banner_bano_de_oro.webp?v=1743085242&width=2000' }
       ]},
     ]},
     { 
@@ -189,9 +189,9 @@ export const optionsData: CategoryOptions = {
       id: 'gems', label: 'Gemas', icon: Gem, options: [
         { id: 'gemstone', label: 'Añadir Piedra (opcional)', type: 'swatch', values: [
           { value: 'ninguna', label: 'Sin Piedra', image: 'https://www.transparenttextures.com/patterns/clean-gray-paper.png' },
-          { value: 'opalo_andino', label: 'Ópalo Andino', image: 'https://images.pexels.com/photos/9738988/pexels-photo-9738988.jpeg' }, 
-          { value: 'turquesa', label: 'Turquesa Peruana', image: 'https://images.pexels.com/photos/1233405/pexels-photo-1233405.jpeg' },
-          { value: 'obsidiana', label: 'Obsidiana', image: 'https://images.pexels.com/photos/997978/pexels-photo-997978.jpeg' }
+          { value: 'opalo_andino', label: 'Ópalo Andino', image: 'https://start-up.pe/wp-content/uploads/2024/12/Opalo-Andino-Peruano.jpg' }, 
+          { value: 'turquesa', label: 'Turquesa Peruana', image: 'https://i.etsystatic.com/38905706/r/il/59115f/4950957195/il_570xN.4950957195_l3ph.jpg' },
+          { value: 'obsidiana', label: 'Obsidiana', image: 'https://vivescortadaimport.com/diccionario-minerales/minerales/obsidiana-negra/obsidiana-negra.jpg' }
         ]},
       ]
     }
