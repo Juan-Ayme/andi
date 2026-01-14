@@ -70,171 +70,180 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-16 gap-y-10">
-
-        {/* --- Columna Izquierda: Galería (sin cambios) --- */}
-        <div className="lg:col-span-3 grid grid-cols-6 gap-4">
-          <div className="col-span-1 flex flex-col gap-3">
-            {product.images.map((image, index) => (
-              <button key={index} onClick={() => setSelectedImage(index)} className={cn("relative aspect-square rounded-lg overflow-hidden transition-all duration-200", selectedImage === index ? "ring-2 ring-emerald-500 ring-offset-2 ring-offset-neutral-900" : "opacity-60 hover:opacity-100")}>
-                <Image src={image} alt={`${product.name} ${index + 1}`} fill className="object-cover"/>
-              </button>
-            ))}
-          </div>
-          <div className="relative col-span-5 aspect-square rounded-2xl overflow-hidden bg-neutral-800/50">
-            <Image src={product.images[selectedImage]} alt={product.name} fill priority className="object-cover transition-all duration-500 ease-in-out"/>
-          </div>
+    <div className="bg-neutral-50 dark:bg-neutral-950 min-h-screen pt-28 pb-12 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb simple */}
+        <div className="text-sm text-neutral-500 mb-8">
+          <Link href="/productos" className="hover:text-primary-600 transition-colors">Productos</Link>
+          <span className="mx-2">/</span>
+          <span className="text-neutral-900 dark:text-neutral-300 font-medium">{product.name}</span>
         </div>
 
-        {/* --- Columna Derecha: Flujo de Información --- */}
-        <div className="lg:col-span-2">
-          <div className="flex flex-col gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10 items-start">
 
-            {/* Bloque 1: Título, Rating y Acciones Sociales (sin cambios) */}
-            <div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-neutral-100">{product.name}</h1>
-              <div className="mt-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Star className="h-5 w-5 text-yellow-400 fill-yellow-400"/>
-                  <span className="font-bold text-neutral-100">{product.rating}</span>
-                  <span className="text-sm text-neutral-400">({product.reviews} reseñas)</span>
+          {/* --- Columna Izquierda: Galería --- */}
+          <div className="space-y-4">
+            <div className="relative aspect-square rounded-[2rem] overflow-hidden bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800">
+              <Image
+                src={product.images[selectedImage]}
+                alt={product.name}
+                fill
+                priority
+                className="object-cover transition-all duration-500 ease-in-out hover:scale-105"
+              />
+            </div>
+            <div className="grid grid-cols-5 gap-4">
+              {product.images.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  className={cn(
+                    "relative aspect-square rounded-xl overflow-hidden transition-all duration-200 border-2",
+                    selectedImage === index
+                      ? "border-primary-600 scale-95"
+                      : "border-transparent opacity-70 hover:opacity-100 hover:border-neutral-300 dark:hover:border-neutral-700"
+                  )}
+                >
+                  <Image src={image} alt={`${product.name} ${index + 1}`} fill className="object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* --- Columna Derecha: Flujo de Información --- */}
+          <div className="flex flex-col h-full">
+            {/* Cabecera del Producto */}
+            <div className="mb-6">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h1 className="text-3xl md:text-4xl font-bold font-playfair text-neutral-900 dark:text-white leading-tight mb-2">
+                    {product.name}
+                  </h1>
+                  <Link href={`/artesanos/${product.artisan.id}`} className="text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline">
+                    Por {product.artisan.name}
+                  </Link>
                 </div>
-                <div className="flex items-center gap-3">
-                  <button onClick={() => setIsLiked(!isLiked)} aria-label="Añadir a favoritos" className="transition-transform active:scale-90">
-                    <Heart className={cn("h-6 w-6 text-neutral-500 hover:text-red-500", isLiked && "text-red-500 fill-current")}/>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setIsLiked(!isLiked)}
+                    className={cn(
+                      "p-3 rounded-full bg-white dark:bg-neutral-800 shadow-sm border border-neutral-100 dark:border-neutral-700 transition-colors",
+                      isLiked ? "text-red-500 bg-red-50 dark:bg-red-900/10" : "text-neutral-400 hover:text-red-500"
+                    )}
+                  >
+                    <Heart className={cn("h-5 w-5", isLiked && "fill-current")} />
                   </button>
-                  <button aria-label="Compartir" className="transition-transform active:scale-90">
-                    <Share2 className="h-6 w-6 text-neutral-500 hover:text-emerald-400"/>
+                  <button className="p-3 rounded-full bg-white dark:bg-neutral-800 shadow-sm border border-neutral-100 dark:border-neutral-700 text-neutral-400 hover:text-primary-600 transition-colors">
+                    <Share2 className="h-5 w-5" />
                   </button>
                 </div>
+              </div>
+
+              <div className="flex items-center gap-4 mt-4">
+                <div className="flex items-center gap-1">
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                  <span className="font-bold text-neutral-900 dark:text-white">{product.rating}</span>
+                </div>
+                <span className="text-neutral-300">|</span>
+                <span className="text-sm text-neutral-500 dark:text-neutral-400 underline decoration-dotted">{product.reviews} reseñas</span>
               </div>
             </div>
 
-            {/* Bloque 2: Descripción y Detalles en Acordeón (sin cambios) */}
-            <Accordion type="multiple" className="w-full" defaultValue={['item-1']}>
-              <AccordionItem value="item-1" className="border-b-0">
-                <AccordionTrigger className="hover:no-underline text-lg">Descripción</AccordionTrigger>
-                <AccordionContent>
-                  <div className="prose prose-invert text-neutral-300 max-w-none">{product.description}</div>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2" className="border-b-0">
-                <AccordionTrigger className="hover:no-underline text-lg">Detalles del Producto</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                    {product.details.map((detail, i) => (
-                      <li key={i} className="flex items-center gap-2 text-neutral-300">
-                        <PackageCheck className="h-4 w-4 text-emerald-500 flex-shrink-0"/>
-                        <span>{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            
-            {/* Bloque 3: Tarjeta del Artesano (sin cambios) */}
-            <div className="bg-neutral-800/50 rounded-2xl p-4">
-               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Award className="h-10 w-10 text-emerald-400"/>
-                  <div>
-                    <h3 className="font-semibold text-neutral-200">Artesano</h3>
-                    <Link href={`/artesanos/${product.artisan.id}`} className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
-                      {product.artisan.name}
-                    </Link>
-                  </div>
+            {/* Precio y Controles */}
+            <div className="bg-white dark:bg-neutral-900 p-6 rounded-2xl shadow-sm border border-neutral-200 dark:border-neutral-800 mb-8">
+              <div className="flex items-end justify-between mb-6">
+                <div className="flex flex-col">
+                  <span className="text-sm text-neutral-500 uppercase tracking-wide font-medium">Precio Total</span>
+                  <span className="text-4xl font-bold text-neutral-900 dark:text-white font-playfair">S/ {(product.price * quantity).toFixed(2)}</span>
                 </div>
-                <div className="text-right">
-                  <div className="flex items-center">
-                    <Star className="h-5 w-5 text-yellow-400 fill-yellow-400 mr-1" />
-                    <span className="text-lg font-medium text-neutral-100">{product.artisan.rating}</span>
-                  </div>
-                  <p className="text-xs text-neutral-400">Calificación</p>
+                <div className="flex items-center bg-neutral-100 dark:bg-neutral-800 rounded-full px-1 py-1">
+                  <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(-1)} className="rounded-full h-8 w-8 text-neutral-600 dark:text-neutral-300 hover:bg-white dark:hover:bg-neutral-700">
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <span className="w-8 text-center font-bold text-neutral-900 dark:text-white select-none">{quantity}</span>
+                  <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(1)} className="rounded-full h-8 w-8 text-neutral-600 dark:text-neutral-300 hover:bg-white dark:hover:bg-neutral-700">
+                    <Plus className="h-4 w-4" />
+                  </Button>
                 </div>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <Button size="lg" className="h-14 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-primary-600/20 transition-all hover:scale-[1.02]">
+                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  Añadir al Carrito
+                </Button>
+                <Button variant="outline" size="lg" className="h-14 w-full border-2 border-primary-600 text-primary-700 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10 font-bold text-lg rounded-xl transition-all">
+                  <Wand2 className="h-5 w-5 mr-2" />
+                  Personalizar Diseño
+                </Button>
+              </div>
+
+              <div className="mt-4 flex items-center justify-center gap-2 text-xs text-neutral-500">
+                <PackageCheck className="h-4 w-4 text-green-500" />
+                <span>Envío gratis a nivel nacional por compras mayores a S/ 300</span>
               </div>
             </div>
 
-            {/* ================================================================================= */}
-            {/* INICIO DE LA NUEVA SECCIÓN DE COMENTARIOS                                         */}
-            {/* ================================================================================= */}
-            <div className="space-y-6 pt-6 border-t border-neutral-800">
-              {/* Encabezado de la sección con título y botón para escribir reseña */}
-              <div className="flex justify-between items-center">
-                <h3 className="text-2xl font-bold text-neutral-100">Opiniones de Clientes</h3>
-                <Button variant="outline" className="hidden sm:inline-flex">Escribe una reseña</Button>
+            {/* Acordeones y Detalles */}
+            <div className="space-y-6">
+              <div className="prose prose-neutral dark:prose-invert max-w-none">
+                <p className="text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">{product.description}</p>
               </div>
 
-              {/* Lista de comentarios/reseñas */}
-              <div className="space-y-8">
-                {sampleReviews.map((review) => (
-                  <article key={review.id} className="flex items-start gap-4">
-                    {/* Avatar del autor del comentario */}
-                    <Image
-                      src={review.avatarUrl}
-                      alt={`Avatar de ${review.author}`}
-                      width={40}
-                      height={40}
-                      className="rounded-full mt-1"
-                    />
-                    <div className="flex-1">
-                      {/* Nombre del autor y fecha del comentario */}
-                      <div className="flex justify-between items-center">
-                        <p className="font-semibold text-neutral-200">{review.author}</p>
-                        <p className="text-xs text-neutral-500">{review.date}</p>
-                      </div>
-
-                      {/* Estrellas de la calificación específica de esta reseña */}
-                      <div className="flex items-center mt-1 mb-2">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            key={i}
-                            className={cn(
-                              'h-4 w-4',
-                              i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-neutral-600'
-                            )}
-                          />
-                        ))}
-                      </div>
-
-                      {/* Texto del comentario */}
-                      <div className="prose prose-sm prose-invert text-neutral-300 max-w-none">
-                        <p>{review.text}</p>
+              <Accordion type="multiple" className="w-full" defaultValue={['details']}>
+                <AccordionItem value="details" className="border-neutral-200 dark:border-neutral-800">
+                  <AccordionTrigger className="text-neutral-900 dark:text-white font-bold text-lg hover:no-underline hover:text-primary-600 transition-colors">
+                    Características Técnicas
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="grid grid-cols-1 gap-y-3 pt-2">
+                      {product.details.map((detail, i) => (
+                        <li key={i} className="flex items-start gap-3 text-neutral-600 dark:text-neutral-400">
+                          <div className="mt-1 h-1.5 w-1.5 rounded-full bg-primary-500 flex-shrink-0" />
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="artisan" className="border-neutral-200 dark:border-neutral-800">
+                  <AccordionTrigger className="text-neutral-900 dark:text-white font-bold text-lg hover:no-underline hover:text-primary-600 transition-colors">
+                    Sobre el Artesano
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="flex items-center gap-4 bg-neutral-100 dark:bg-neutral-800/50 p-4 rounded-xl mt-2">
+                      <Award className="h-10 w-10 text-primary-500 bg-white dark:bg-neutral-800 p-2 rounded-full shadow-sm" />
+                      <div>
+                        <p className="font-bold text-neutral-900 dark:text-white">{product.artisan.name}</p>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400">{product.artisan.location}</p>
                       </div>
                     </div>
-                  </article>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+
+            {/* Reviews Section Simplified */}
+            <div className="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+              <h3 className="text-2xl font-bold font-playfair text-neutral-900 dark:text-white mb-6">Opiniones ({product.reviews})</h3>
+              <div className="space-y-6">
+                {sampleReviews.map((review) => (
+                  <div key={review.id} className="border-b border-neutral-100 dark:border-neutral-800 last:border-0 pb-6 last:pb-0">
+                    <div className="flex justify-between mb-2">
+                      <span className="font-bold text-neutral-900 dark:text-white">{review.author}</span>
+                      <span className="text-xs text-neutral-400">{review.date}</span>
+                    </div>
+                    <div className="flex mb-2">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} className={cn("h-3 w-3", i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-neutral-300")} />
+                      ))}
+                    </div>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 italic">"{review.text}"</p>
+                  </div>
                 ))}
               </div>
             </div>
-            {/* ================================================================================= */}
-            {/* FIN DE LA NUEVA SECCIÓN DE COMENTARIOS                                           */}
-            {/* ================================================================================= */}
 
-
-            {/* Bloque 4: Barra de Acciones Flotante y Sin Bordes (sin cambios) */}
-            <div className="sticky bottom-4 z-10">
-              <div className="bg-neutral-900/60 backdrop-blur-lg rounded-2xl p-5 space-y-4 shadow-2xl shadow-black/30">
-                <Button size="lg" className="w-full h-14 text-lg font-bold text-white bg-gradient-to-br from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-100 animate-pulse-shadow">
-                  <Wand2 className="h-6 w-6 mr-3"/>
-                  ¡Personalízalo Ahora!
-                </Button>
-                
-                <div className="flex justify-between items-center pt-2">
-                   <p className="text-3xl font-bold text-neutral-100">S/ {product.price.toFixed(2)}</p>
-                   <div className="flex items-center bg-neutral-800 rounded-lg">
-                    <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(-1)} className="text-neutral-300"><Minus className="h-4 w-4"/></Button>
-                    <span className="w-10 text-center font-bold text-lg text-neutral-100">{quantity}</span>
-                    <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(1)} className="text-neutral-300"><Plus className="h-4 w-4"/></Button>
-                  </div>
-                </div>
-
-                <Button size="lg" className="w-full bg-neutral-700 text-neutral-200 hover:bg-neutral-600 active:scale-95">
-                  <ShoppingCart className="h-5 w-5 mr-2" />
-                  O añadir al carrito
-                </Button>
-              </div>
-            </div>
           </div>
         </div>
       </div>

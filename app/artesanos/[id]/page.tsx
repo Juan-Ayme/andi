@@ -271,137 +271,124 @@ export default function ArtisanProfilePage({ params }: ArtisanProfilePageProps) 
 
   if (!artisan) {
     return (
-      <div className="min-h-screen pt-16 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
-        <div className="absolute inset-0 bg-[url('/patterns/inca-pattern.svg')] opacity-5"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-neutral-100  mb-4">Artesano no encontrado</h1>
-            <p className="text-neutral-300">El artesano que buscas no existe.</p>
-            <Link href="/artesanos" className="btn-primary inline-flex items-center mt-6">
-              Volver a Artesanos
-            </Link>
-          </div>
-        </div>
+      <div className="min-h-screen pt-32 pb-12 bg-neutral-50 dark:bg-neutral-950 flex flex-col items-center justify-center text-center px-4">
+        <h1 className="text-4xl font-playfair font-bold text-neutral-900 dark:text-white mb-4">Artesano no encontrado</h1>
+        <p className="text-neutral-600 dark:text-neutral-400 mb-8 max-w-md">Lo sentimos, no pudimos encontrar el perfil del artesano que buscas.</p>
+        <Link href="/artesanos" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary-600 hover:bg-primary-700 transition-colors">
+          Volver a Artesanos
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-16 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
-      <div className="absolute inset-0 bg-[url('/patterns/inca-pattern.svg')] opacity-5"></div>
-      
-      {/* Cover Image */}
-      <div className="relative h-64 lg:h-96">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 animate-fade-in">
+
+      {/* Hero Cover */}
+      <div className="relative h-[50vh] min-h-[400px] w-full overflow-hidden">
         <Image
           src={artisan.coverImage}
-          alt={`${artisan.name} workspace`}
+          alt={`Taller de ${artisan.name}`}
           fill
           className="object-cover"
+          priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-      </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/90 via-neutral-900/40 to-transparent" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* === Profile Header Mejorado === */}
-      <div className="relative -mt-32 pb-8">
-        {/* Se reemplazó "card-dark" por utilidades de Tailwind. 
-          Un fondo más oscuro, bordes más redondeados y una sombra más pronunciada.
-        */}
-        <div className="bg-neutral-900 rounded-2xl shadow-xl p-6 md:p-8">
-
-          {/* --- Sección Superior: Avatar, Info y Botones de Acción --- */}
-          <div className="sm:flex sm:items-start sm:justify-between">
-            
-            {/* --- Avatar e Información --- */}
-            <div className="sm:flex sm:items-center sm:space-x-6">
-              
-              {/* Avatar */}
-              <div className="relative mx-auto sm:mx-0 h-32 w-32 shrink-0">
-                <Image
-                  src={artisan.image}
-                  alt={artisan.name}
-                  fill
-                  className="object-cover rounded-full ring-4 ring-emerald-500/80"
-                />
-              </div>
-              
-              {/* Información del Artesano */}
-              <div className="mt-4 sm:mt-0 text-center sm:text-left">
-                <h1 className="text-3xl md:text-4xl font-extrabold text-emerald-300 drop-shadow-sm tracking-tight">
-                  {artisan.name}
-                </h1>
-                <p className="text-base md:text-lg text-emerald-300 mt-1 font-medium">
-                  {artisan.specialty}
-                </p>
-                <div className="mt-2 flex items-center justify-center sm:justify-start gap-2">
-                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-900/70 text-emerald-300 text-sm font-semibold shadow-sm">
-                    <MapPin className="h-5 w-5 shrink-0" />
-                    {artisan.location}
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            {/* --- Botones de Acción --- */}
-            {/* Se usan los estilos de botones definidos previamente para consistencia */}
-            <div className="mt-6 sm:mt-2 flex flex-col sm:flex-row gap-3 shrink-0">
-              <a href={`mailto:${artisan.email}`} className="
-                  bg-emerald-500 text-white hover:bg-emerald-600 
-                  inline-flex items-center justify-center text-center
-                  font-semibold rounded-lg px-4 py-2 transition-colors duration-200">
-                <Mail className="h-5 w-5 mr-2" />
-                Contactar
-              </a>
-              <a
-                href={`tel:${artisan.phone}`}
-                className="
-                  bg-emerald-950/40
-                  border border-emerald-400
-                  text-emerald-200
-                  hover:bg-emerald-800/70
-                  hover:text-white
-                  hover:shadow-lg
-                  focus:outline-none focus:ring-2 focus:ring-emerald-400
-                  inline-flex items-center justify-center text-center
-                  font-semibold rounded-lg px-4 py-2
-                  transition-all duration-200
-                "
-                aria-label={`Llamar a ${artisan.name}`}
-              >
-                <Phone className="h-5 w-5 mr-2" />
-                Llamar
-              </a>
-            </div>
-          </div>
-
-          {/* --- Sección Inferior: Rating y Técnicas --- */}
-          <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-neutral-700/80 pt-6">
-            
-            {/* Rating */}
-            <div className="flex items-center gap-1.5">
-              <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
-              <span className="font-bold text-lg text-neutral-100">{artisan.rating}</span>
-              <span className="text-sm text-neutral-400">({artisan.reviews} reseñas)</span>
-            </div>
-            
-            {/* Etiquetas de Técnicas */}
-            <div className="flex flex-wrap justify-center gap-2">
-              {artisan.techniques.slice(0, 3).map((technique) => (
-                <span
-                  key={technique}
-                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
-                            bg-emerald-500/10 text-emerald-500 ring-1 ring-inset ring-emerald-500/20"
-                >
-                  {technique}
-                </span>
-              ))}
-            </div>
-          </div>
+        {/* Breadcrumb / Back Navigation */}
+        <div className="absolute top-28 left-4 sm:left-8 z-10">
+          <Link
+            href="/artesanos"
+            className="inline-flex items-center text-white/80 hover:text-white bg-black/20 hover:bg-black/40 backdrop-blur-md px-4 py-2 rounded-full transition-all text-sm font-medium"
+          >
+            ← Volver a Artesanos
+          </Link>
         </div>
       </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-32 pb-16">
+        {/* Profile Card */}
+        <div className="bg-white dark:bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-100 dark:border-neutral-800 p-6 sm:p-10 mb-12">
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+
+            {/* Avatar */}
+            <div className="relative shrink-0 mx-auto md:mx-0">
+              <div className="w-40 h-40 rounded-full p-1 bg-white dark:bg-neutral-800 shadow-xl ring-1 ring-neutral-200 dark:ring-neutral-700">
+                <div className="relative w-full h-full rounded-full overflow-hidden">
+                  <Image
+                    src={artisan.image}
+                    alt={artisan.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="absolute bottom-2 right-2 bg-primary-500 text-white p-2 rounded-full shadow-lg border-2 border-white dark:border-neutral-900">
+                <Star className="h-5 w-5 fill-current" />
+              </div>
+            </div>
+
+            {/* Info */}
+            <div className="flex-1 text-center md:text-left space-y-4 w-full">
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                <div>
+                  <h1 className="text-4xl md:text-5xl font-playfair font-bold text-neutral-900 dark:text-white mb-2">
+                    {artisan.name}
+                  </h1>
+                  <p className="text-xl text-primary-600 dark:text-primary-400 font-medium font-playfair italic">
+                    {artisan.specialty}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-center md:justify-end gap-1 bg-neutral-100 dark:bg-neutral-800 px-4 py-2 rounded-xl self-center md:self-start">
+                  <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                  <span className="font-bold text-lg text-neutral-900 dark:text-white">{artisan.rating}</span>
+                  <span className="text-sm text-neutral-500">({artisan.reviews} reseñas)</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-neutral-600 dark:text-neutral-400">
+                <span className="flex items-center gap-1.5 bg-neutral-100 dark:bg-neutral-800/50 px-3 py-1.5 rounded-full text-sm">
+                  <MapPin className="h-4 w-4 text-primary-500" />
+                  {artisan.location}
+                </span>
+                {artisan.techniques.slice(0, 2).map((tech) => (
+                  <span key={tech} className="text-sm px-3 py-1.5 border border-neutral-200 dark:border-neutral-700 rounded-full">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Bio Quote */}
+              <div className="bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-xl border border-neutral-100 dark:border-neutral-800/50 mt-4">
+                <p className="text-neutral-600 dark:text-neutral-300 italic text-lg leading-relaxed">
+                  "{artisan.bio}"
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button className="flex-1 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-xl shadow-lg shadow-primary-900/20 text-base font-semibold" asChild>
+                  <a href={`mailto:${artisan.email}`}>
+                    <Mail className="h-5 w-5 mr-2" />
+                    Contactar
+                  </a>
+                </Button>
+                <Button variant="outline" className="flex-1 h-12 border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-base font-semibold rounded-xl" asChild>
+                  <a href={`tel:${artisan.phone}`}>
+                    <Phone className="h-5 w-5 mr-2" />
+                    Llamar Taller
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Content Tabs */}
-        <ArtisanTabs artisan={artisan} />
+        <div className="animate-slide-up" style={{ animationDelay: '200ms' }}>
+          <ArtisanTabs artisan={artisan} />
+        </div>
       </div>
     </div>
   );

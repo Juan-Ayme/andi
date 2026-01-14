@@ -137,50 +137,59 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     textiles: 'Textiles Ayacuchanos',
     ceramica: 'Cerámica Tradicional',
     retablos: 'Retablos Artesanales',
-    tallados: 'Tallados en Piedra'
+    tallados: 'Tallados en Piedra',
+    joyeria: 'Joyería Andina'
   };
 
   const categoryDescriptions = {
     textiles: 'Descubre nuestra colección de textiles tradicionales ayacuchanos, tejidos a mano con técnicas ancestrales y tintes naturales.',
     ceramica: 'Explora nuestras piezas de cerámica hechas a mano, cada una con diseños únicos que reflejan la rica tradición alfarera de Ayacucho.',
     retablos: 'Conoce nuestros retablos elaborados por maestros artesanos, verdaderas obras de arte que narran historias de la cultura andina.',
-    tallados: 'Admira nuestras esculturas talladas en piedra de Huamanga, piezas únicas que combinan tradición y maestría artesanal.'
+    tallados: 'Admira nuestras esculturas talladas en piedra de Huamanga, piezas únicas que combinan tradición y maestría artesanal.',
+    joyeria: 'Joyas únicas inspiradas en la iconografía andina.'
   };
 
   return (
-    <div className="min-h-screen pt-16 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
-      <div className="absolute inset-0 bg-[url('/patterns/inca-pattern.svg')] opacity-5"></div>
-      
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-neutral-100 ">
-              {categoryTitles[params.category as keyof typeof categoryTitles]}
+    <div className="min-h-screen pt-28 bg-neutral-50 dark:bg-neutral-950 transition-colors duration-300">
+      <div className="absolute inset-0 bg-[url('/patterns/inca-pattern.svg')] opacity-[0.03] dark:opacity-5 pointer-events-none"></div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
+
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6">
+          <div className="max-w-3xl">
+            <div className="inline-block px-3 py-1 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-bold uppercase tracking-wider mb-3">
+              Colección Exclusiva
+            </div>
+            <h1 className="text-4xl md:text-5xl font-playfair font-bold text-neutral-900 dark:text-white tracking-tight mb-4">
+              {categoryTitles[params.category as keyof typeof categoryTitles] || params.category}
             </h1>
-            <p className="mt-2 text-neutral-300 max-w-3xl">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed border-l-4 border-primary-500 pl-4 py-1">
               {categoryDescriptions[params.category as keyof typeof categoryDescriptions]}
             </p>
           </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex bg-neutral-800/50 rounded-lg p-1 border border-neutral-700">
-              <Button variant="ghost" size="sm" className="px-3 text-neutral-300 hover:text-primary-400 hover:bg-primary-500/20">
-                <Grid2X2 className="h-4 w-4" />
+
+          <div className="flex items-center gap-3">
+            <div className="bg-white dark:bg-neutral-800 p-1 rounded-xl border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center">
+              <Button variant="ghost" size="icon" className="hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg text-neutral-600 dark:text-neutral-300">
+                <Grid2X2 className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="px-3 text-neutral-300 hover:text-primary-400 hover:bg-primary-500/20">
-                <LayoutList className="h-4 w-4" />
+              <Button variant="ghost" size="icon" className="hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg text-neutral-400 dark:text-neutral-500">
+                <LayoutList className="h-5 w-5" />
               </Button>
             </div>
-            <Button variant="outline" className="bg-neutral-800/50 border-neutral-700 text-neutral-300 hover:bg-neutral-700/50">
+            <Button variant="outline" className="h-10 bg-white dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-xl px-4">
               <Filter className="h-4 w-4 mr-2" />
               Filtros
             </Button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-1">
-            <ProductFilters />
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+          <div className="lg:col-span-1 hidden lg:block">
+            <div className="sticky top-32">
+              <ProductFilters />
+            </div>
           </div>
           <div className="lg:col-span-3">
             <ProductGrid products={productsByCategory[params.category as keyof typeof productsByCategory]} />

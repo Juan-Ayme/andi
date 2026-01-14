@@ -3,42 +3,45 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, Sparkles, Star, Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 // Slider images
 const slides = [
   {
     id: 1,
     image: 'https://blog.viajesmachupicchu.travel/wp-content/uploads/2025/04/artesanias-peruanas-portada-1.jpg',
-    title: 'Artesanía Peruana Auténtica',
-    subtitle: 'Conectando tradición con el mundo moderno',
+    title: 'El Alma de los Andes en cada Pieza',
+    subtitle: 'Conectando tradiciones milenarias con el diseño contemporáneo.',
     cta: 'Explorar Colección'
   },
   {
     id: 2,
     image: 'https://www.ytuqueplanes.com/imagenes//fotos/novedades/b-Artesan%C3%ADa-de-Ayacucho.webp',
-    title: 'Descubre el Arte de Ayacucho',
-    subtitle: 'Cada pieza cuenta una historia ancestral',
+    title: 'Maestría Artesanal de Ayacucho',
+    subtitle: 'Cada obra es un testimonio vivo de nuestra herencia cultural.',
     cta: 'Conocer Artesanos'
   },
   {
     id: 3,
     image: 'https://d1ih8jugeo2m5m.cloudfront.net/2021/08/Manualidades-para-vender-thumbnail.jpg',
-    title: 'Personaliza tu Artesanía',
-    subtitle: 'Creaciones únicas hechas especialmente para ti',
+    title: 'Crea tu Propio Legado',
+    subtitle: 'Personaliza piezas únicas junto a nuestros maestros artesanos.',
     cta: 'Personalizar Ahora'
   }
 ];
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    setIsLoaded(true);
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 6000);
-    
+    }, 7000); // 7 seconds per slide
+
     return () => clearInterval(interval);
   }, []);
 
@@ -47,105 +50,136 @@ export default function Hero() {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden bg-neutral-900">
       {/* Background Slider */}
       <div className="absolute inset-0">
         {slides.map((slide, index) => (
-          <div 
+          <div
             key={slide.id}
             className={cn(
-              "absolute inset-0 transition-opacity duration-1000 ease-in-out",
-              currentSlide === index ? "opacity-100" : "opacity-0"
+              "absolute inset-0 transition-all duration-1000 ease-in-out",
+              currentSlide === index ? "opacity-100 scale-105" : "opacity-0 scale-100"
             )}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/80 via-neutral-950/40 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-transparent to-neutral-950/30 z-10" />
             <Image
               src={slide.image}
               alt={slide.title}
               fill
-              priority
+              priority={index === 0}
               className="object-cover"
             />
           </div>
         ))}
       </div>
-      
-      {/* Floating elements */}
-      <div className="absolute inset-0 z-15">
-        <div className="absolute top-20 left-10 animate-bounce">
-          <Sparkles className="h-8 w-8 text-primary-400 opacity-60" />
+
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 z-15 pointer-events-none">
+        {/* Animated dots pattern */}
+        <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+        <div className="absolute top-32 left-10 animate-float-subtle">
+          <Sparkles className="h-12 w-12 text-secondary-400 opacity-60 blur-sm" />
         </div>
-        <div className="absolute top-40 right-20 animate-pulse">
-          <Star className="h-6 w-6 text-secondary-400 opacity-40" />
-        </div>
-        <div className="absolute bottom-40 left-20 animate-bounce delay-1000">
-          <Star className="h-4 w-4 text-accent-400 opacity-50" />
+        <div className="absolute bottom-32 right-20 animate-float-subtle" style={{ animationDelay: '2s' }}>
+          <Star className="h-8 w-8 text-primary-400 opacity-40" />
         </div>
       </div>
-      
-      {/* Content */}
-      <div className="relative z-20 h-full flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {slides.map((slide, index) => (
-            <div 
-              key={slide.id}
-              className={cn(
-                "transition-all duration-1000 transform",
-                currentSlide === index 
-                  ? "opacity-100 translate-y-0" 
-                  : "opacity-0 translate-y-8 absolute"
-              )}
-            >
+
+      {/* Main Content */}
+      <div className="relative z-20 h-full w-full pointer-events-none">
+        {slides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={cn(
+              "absolute inset-0 flex items-center justify-center transition-all duration-1000",
+              currentSlide === index
+                ? "opacity-100 pointer-events-auto"
+                : "opacity-0 pointer-events-none"
+            )}
+          >
+            <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-8">
               <div className="max-w-4xl">
-                <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                  {slide.title}
+                <div className="overflow-hidden mb-4">
+                  <span className={cn(
+                    "inline-block text-secondary-400 font-medium tracking-widest uppercase text-sm mb-2 transform transition-transform duration-700 delay-100",
+                    currentSlide === index ? "translate-y-0" : "translate-y-full"
+                  )}>
+                    Arte Andino Premium
+                  </span>
+                </div>
+
+                <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-playfair font-bold text-white leading-[1.1] tracking-tight mb-6 drop-shadow-lg">
+                  <span className="block">{slide.title.split(' ').slice(0, 3).join(' ')}</span>
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-400">
+                    {slide.title.split(' ').slice(3).join(' ')}
+                  </span>
                 </h1>
-                <p className="mt-6 text-xl md:text-2xl text-white text-neutral-200 max-w-2xl">
+
+                <p className="text-xl md:text-2xl text-neutral-300 max-w-2xl mb-10 font-light leading-relaxed drop-shadow-md">
                   {slide.subtitle}
                 </p>
-                <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                  <Link
-                    href="/productos"
-                    className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl shadow-lg btn-primary group"
+
+                <div className="flex flex-col sm:flex-row gap-5">
+                  <Button
+                    size="lg"
+                    className="rounded-full px-8 py-7 text-lg bg-primary-600 hover:bg-primary-700 text-white shadow-lg shadow-primary-900/20 group animate-slide-up"
+                    asChild
                   >
-                    {slide.cta}
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <Link
-                    href="/artesanos"
-                    className="inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl glass text-white hover:bg-white/20 transition-all duration-300"
+                    <Link href="/productos">
+                      {slide.cta}
+                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="rounded-full px-8 py-7 text-lg border-white/30 bg-white/5 backdrop-blur-sm text-white hover:bg-white/20 animate-slide-up"
+                    style={{ animationDelay: '100ms' }}
+                    asChild
                   >
-                    Conocer Artesanos
-                  </Link>
+                    <Link href="/artesanos" className="flex items-center">
+                      <Play className="mr-2 h-4 w-4 fill-current" /> Ver Historia
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-      
-      {/* Indicators */}
-      <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center space-x-3">
+
+      {/* Slider Indicators */}
+      <div className="absolute right-8 top-1/2 transform -translate-y-1/2 z-30 flex flex-col space-y-4 hidden lg:flex">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={cn(
-              "h-3 rounded-full transition-all duration-300",
-              currentSlide === index 
-                ? "w-12 bg-primary-400 animate-glow" 
-                : "w-3 bg-white/50 hover:bg-white/80"
-            )}
+            className="group flex items-center space-x-4 focus:outline-none"
             aria-label={`Go to slide ${index + 1}`}
-          />
+          >
+            <span className={cn(
+              "text-xs font-medium transition-all duration-300",
+              currentSlide === index ? "text-white opacity-100 translate-x-0" : "text-neutral-400 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0"
+            )}>
+              0{index + 1}
+            </span>
+            <div className={cn(
+              "w-1 h-12 transition-all duration-500 rounded-full",
+              currentSlide === index
+                ? "h-16 bg-gradient-to-b from-primary-400 to-secondary-500 scale-y-110"
+                : "bg-white/20 group-hover:bg-white/40"
+            )} />
+          </button>
         ))}
       </div>
-      
-      {/* Scroll indicator */}
-      <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-20 animate-bounce hidden md:block">
-        <div className="w-8 h-12 border-2 border-white/60 rounded-full flex justify-center">
-          <div className="w-1.5 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
-        </div>
+
+      {/* Bottom Scroll Indicator */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center animate-bounce-slow cursor-pointer" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+        <span className="text-xs uppercase tracking-widest text-neutral-400 mb-2">Descubre Más</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-white to-transparent"></div>
       </div>
     </div>
   );

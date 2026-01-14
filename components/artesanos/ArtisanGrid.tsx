@@ -71,104 +71,68 @@ const artisans = [
 export default function ArtisanGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {artisans.map((artisan) => (
-        <div key={artisan.id} className="group card-dark overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-          <div className="relative h-64 overflow-hidden">
+      {artisans.map((artisan, index) => (
+        <div
+          key={artisan.id}
+          className="group bg-white dark:bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 animate-fade-in-up"
+          style={{ animationDelay: `${index * 100}ms` }}
+        >
+          <div className="relative h-72 overflow-hidden">
             <Image
               src={artisan.image}
               alt={artisan.name}
               fill
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
+              className="object-cover group-hover:scale-110 transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+
             {/* Overlay content */}
             <div className="absolute bottom-4 left-4 right-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center text-white">
-                  <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
-                  <span className="text-sm font-medium">{artisan.rating}</span>
+                <div className="flex items-center gap-1 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-full border border-white/10">
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                  <span className="text-sm font-medium text-white">{artisan.rating}</span>
+                </div>
+                <div className="bg-primary-600/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">{artisan.specialty}</span>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <div className="p-6">
             <div className="flex justify-between items-start mb-4">
-                  <div className="space-y-2">
-                    <h3 className="
-                        text-xl font-bold text-neutral-100
-                        group-hover:text-emerald-400 transition-colors duration-300
+              <div className="space-y-1">
+                <h3 className="
+                        text-2xl font-playfair font-bold text-neutral-900 dark:text-neutral-100
+                        group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300
                       ">
-                      {artisan.name}
-                    </h3>
-                    <p className="
-                        inline-block px-3 py-1 text-xs font-semibold
-                        bg-emerald-500/10 text-emerald-500 
-                        rounded-full ring-1 ring-inset ring-emerald-500/20
-                      ">
-                      {artisan.specialty}
-                    </p>
-                  </div>
-              <div className="flex items-center">
-                <Award className="h-5 w-5 text-secondary-400 mr-1" />
-                <span className="text-sm text-neutral-400">({artisan.reviews})</span>
+                  {artisan.name}
+                </h3>
+                <div className="flex items-center text-neutral-500 dark:text-neutral-400 text-sm">
+                  <MapPin className="h-3.5 w-3.5 mr-1.5 text-primary-500" />
+                  <span>{artisan.location}</span>
+                </div>
               </div>
             </div>
-            
-            <div className="flex items-center text-neutral-400 mb-4">
-              <MapPin className="h-4 w-4 mr-2" />
-              <span className="text-sm">{artisan.location}</span>
-            </div>
-            
-            <p className="text-neutral-300 mb-6 text-sm leading-relaxed">{artisan.bio}</p>
-            
-            <div className="flex gap-3">
-{/* === Botón Primario: Inspirado en tintes naturales y terracota === */}
-<Button asChild className="flex-1">
-  <Link 
-    href={`/productos?artisan=${artisan.id}`}
-    className="
-      /* --- Paleta de Colores Verde Pastel --- */
-      bg-emerald-500 text-white 
-      hover:bg-emerald-600 
-      focus:ring-4 focus:ring-emerald-300
 
-      /* --- Estilos y Transiciones (se mantienen) --- */
-      inline-flex items-center justify-center text-center
-      font-semibold rounded-md px-4 py-2 
-      transition-all duration-300 ease-in-out
-      shadow-md hover:shadow-lg transform hover:-translate-y-0.5
-    "
-  >
-    Ver Productos
-  </Link>
-</Button>
+            <p className="text-neutral-600 dark:text-neutral-300 mb-6 text-sm leading-relaxed line-clamp-2">
+              "{artisan.bio}"
+            </p>
 
-{/* === Botón Secundario para FONDO OSCURO (Corregido) === */}
-<Button asChild className="flex-1">
-  <Link 
-    href={`/artesanos/${artisan.id}`}
-    className="
-      /* --- Paleta de Colores Verde Pastel (para fondo oscuro) --- */
-      bg-transparent
-      border-2 border-emerald-400
-      !text-emerald-400
-      hover:bg-emerald-200  /* <-- Un fondo traslúcido sutil en hover */
-      hover:!text-emerald-500
-      hover:border-emerald-200
-      focus:ring-4 focus:ring-emerald-00
+            <div className="grid grid-cols-2 gap-3 mt-auto">
+              <Button asChild variant="default" className="w-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-neutral-800 hover:dark:bg-neutral-200">
+                <Link href={`/productos?artisan=${artisan.id}`}>
+                  Ver Productos
+                </Link>
+              </Button>
 
-      /* --- Estilos y Transiciones (se mantienen) --- */
-      inline-flex items-center justify-center text-center
-      font-semibold rounded-md px-4 py-2
-      transition-all duration-300 ease-in-out
-    "
-  >
-    {/* El texto hereda el color de `text-emerald-300` y cambia con `hover:text-white` */}
-    Ver Perfil
-  </Link>
-</Button>
+              <Button asChild variant="outline" className="w-full border-neutral-200 dark:border-neutral-700 hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <Link href={`/artesanos/${artisan.id}`}>
+                  <Eye className="h-4 w-4 mr-2" />
+                  Ver Perfil
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

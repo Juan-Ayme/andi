@@ -2,6 +2,7 @@
 
 // Importa el componente que se encargará de renderizar los detalles visuales del producto.
 import ProductDetails from '@/components/productos/ProductDetails';
+import Link from 'next/link';
 
 // Datos de ejemplo para los productos. En una aplicación real, esto vendría de una API o una base de datos.
 const products = [
@@ -107,14 +108,15 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   // Si no se encuentra el producto (por ejemplo, una URL con un ID que no existe), muestra un mensaje de error.
   if (!product) {
     return (
-      <div className="min-h-screen pt-16 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
+      <div className="min-h-screen pt-28 bg-neutral-50 dark:bg-neutral-950 transition-colors duration-300 flex items-center justify-center">
         {/* Patrón de fondo para decorar */}
-        <div className="absolute inset-0 bg-[url('/patterns/inca-pattern.svg')] opacity-5"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-neutral-100  mb-4">Producto no encontrado</h1>
-            <p className="text-neutral-300">El producto que buscas no existe o ha sido removido.</p>
-          </div>
+        <div className="absolute inset-0 bg-[url('/patterns/inca-pattern.svg')] opacity-[0.03] dark:opacity-5 pointer-events-none"></div>
+        <div className="relative max-w-lg mx-auto px-6 text-center">
+          <h1 className="text-4xl font-playfair font-bold text-neutral-900 dark:text-white mb-4">Producto no encontrado</h1>
+          <p className="text-neutral-600 dark:text-neutral-400 mb-8">El producto que buscas no existe o ha sido removido.</p>
+          <Link href="/productos" className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-primary-600 hover:bg-primary-700 transition-colors">
+            Volver al Catálogo
+          </Link>
         </div>
       </div>
     );

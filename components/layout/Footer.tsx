@@ -1,151 +1,101 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { Facebook, Instagram, Twitter, Mail, MapPin, Phone, Sparkles } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Mail, MapPin, Phone, Sparkles, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white border-t border-neutral-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
+    <footer className="bg-neutral-900 border-t border-neutral-800 pt-16 pb-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
+          {/* Brand Column */}
+          <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="flex items-center group">
-              <div className="relative h-10 w-10 mr-3">
-                <Sparkles className="h-10 w-10 text-primary-400 group-hover:text-primary-300 transition-colors" />
+              <div className="relative h-10 w-10 mr-3 flex items-center justify-center bg-primary-500/10 rounded-full group-hover:bg-primary-500/20 transition-colors">
+                <Sparkles className="h-6 w-6 text-primary-500" />
               </div>
-              <span className="font-playfair text-xl font-bold text-primary-400 group-hover:text-primary-300 transition-colors">
-                ArteAndino<span className="text-secondary-400">.pe</span>
+              <span className="font-playfair text-2xl font-bold text-neutral-100">
+                ArteAndino<span className="text-secondary-500">.pe</span>
               </span>
             </Link>
-            <p className="mt-4 text-neutral-300 text-sm leading-relaxed">
-              Conectando artesanos ayacuchanos con el mundo, preservando el patrimonio cultural andino a través del arte y la innovación.
+            <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
+              Una plataforma dedicada a preservar y difundir el patrimonio cultural de Ayacucho, conectando la maestría de nuestros artesanos con el mundo moderno.
             </p>
-            <div className="mt-6 flex space-x-4">
-              <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors p-2 rounded-lg hover:bg-neutral-800">
+            <div className="flex space-x-4">
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 hover:bg-primary-500 hover:text-white transition-all duration-300">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors p-2 rounded-lg hover:bg-neutral-800">
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 hover:bg-secondary-500 hover:text-white transition-all duration-300">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors p-2 rounded-lg hover:bg-neutral-800">
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 hover:bg-neutral-700 hover:text-white transition-all duration-300">
                 <Twitter className="h-5 w-5" />
               </a>
             </div>
           </div>
-          
-          <div>
-            <h3 className="text-lg font-medium mb-4 text-white">Enlaces Rápidos</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Inicio
-                </Link>
-              </li>
-              <li>
-                <Link href="/productos" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Productos
-                </Link>
-              </li>
-              <li>
-                <Link href="/artesanos" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Artesanos
-                </Link>
-              </li>
-              <li>
-                <Link href="/precios" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Planes para Artesanos
-                </Link>
-              </li>
-              <li>
-                <Link href="/personalizar" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Personalizar
-                </Link>
-              </li>
-              <li>
-                <Link href="/nosotros" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Sobre Nosotros
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Blog
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-medium mb-4 text-white">Categorías</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/productos/textiles" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Textiles Ayacuchanos
-                </Link>
-              </li>
-              <li>
-                <Link href="/productos/ceramica" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Cerámica
-                </Link>
-              </li>
-              <li>
-                <Link href="/productos/retablos" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Retablos
-                </Link>
-              </li>
-              <li>
-                <Link href="/productos/tallados" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Tallados en Piedra
-                </Link>
-              </li>
-              <li>
-                <Link href="/productos/innovacion" className="text-neutral-300 hover:text-primary-400 transition-colors text-sm block py-1">
-                  Artesanía Innovadora
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-medium mb-4 text-white">Contáctanos</h3>
+
+          {/* Links Column 1 */}
+          <div className="lg:col-span-2">
+            <h3 className="text-white font-semibold mb-6">Explorar</h3>
             <ul className="space-y-4">
-              <li className="flex items-start">
-                <MapPin className="h-5 w-5 text-primary-400 mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-neutral-300 text-sm">
-                  Av. Independencia 123, Ayacucho, Perú
-                </span>
-              </li>
-              <li className="flex items-center">
-                <Phone className="h-5 w-5 text-primary-400 mr-3 flex-shrink-0" />
-                <span className="text-neutral-300 text-sm">+51 966 123 456</span>
-              </li>
-              <li className="flex items-center">
-                <Mail className="h-5 w-5 text-primary-400 mr-3 flex-shrink-0" />
-                <span className="text-neutral-300 text-sm">info@arteandino.pe</span>
-              </li>
+              {['Inicio', 'Productos', 'Artesanos', 'Blog', 'Nosotros'].map((item) => (
+                <li key={item}>
+                  <Link href={`/${item.toLowerCase()}`} className="text-neutral-400 hover:text-primary-400 transition-colors text-sm flex items-center group">
+                    <span className="w-0 group-hover:w-2 h-0.5 bg-primary-500 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
-            
-            <div className="mt-6">
-              <h4 className="text-sm font-medium text-white mb-3">Horarios de Atención</h4>
-              <p className="text-neutral-400 text-xs">
-                Lunes a Viernes: 9:00 AM - 6:00 PM<br />
-                Sábados: 9:00 AM - 2:00 PM
-              </p>
+          </div>
+
+          {/* Links Column 2 */}
+          <div className="lg:col-span-2">
+            <h3 className="text-white font-semibold mb-6">Artesanía</h3>
+            <ul className="space-y-4">
+              {['Textiles', 'Cerámica', 'Retablos', 'Piedra de Huamanga', 'Joyería'].map((item) => (
+                <li key={item}>
+                  <Link href="/productos" className="text-neutral-400 hover:text-secondary-400 transition-colors text-sm">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Newsletter Column */}
+          <div className="lg:col-span-4">
+            <h3 className="text-white font-semibold mb-6">Suscríbete</h3>
+            <p className="text-neutral-400 text-sm mb-4">
+              Recibe las últimas novedades, historias de artesanos y ofertas exclusivas directamente en tu correo.
+            </p>
+            <div className="space-y-3">
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder="Tu correo electrónico"
+                  className="w-full bg-neutral-800 border border-neutral-700 text-neutral-100 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder:text-neutral-500"
+                />
+              </div>
+              <Button className="w-full bg-primary-600 hover:bg-primary-500 text-white">
+                Suscribirse <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
-        
-        <div className="mt-12 pt-8 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-neutral-400 text-sm">
-            &copy; {new Date().getFullYear()} ArteAndino.pe. Todos los derechos reservados.
+
+        <div className="border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-neutral-500 text-sm text-center md:text-left">
+            &copy; {new Date().getFullYear()} ArteAndino.pe. Hecho con ❤️ en Ayacucho.
           </p>
-          <div className="mt-4 md:mt-0 flex space-x-6">
-            <Link href="/terminos" className="text-neutral-400 hover:text-primary-400 text-sm transition-colors">
-              Términos y Condiciones
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link href="/terminos" className="text-neutral-500 hover:text-primary-400 text-sm transition-colors">
+              Términos
             </Link>
-            <Link href="/privacidad" className="text-neutral-400 hover:text-primary-400 text-sm transition-colors">
-              Política de Privacidad
+            <Link href="/privacidad" className="text-neutral-500 hover:text-primary-400 text-sm transition-colors">
+              Privacidad
             </Link>
-            <Link href="/cookies" className="text-neutral-400 hover:text-primary-400 text-sm transition-colors">
-              Política de Cookies
+            <Link href="/cookies" className="text-neutral-500 hover:text-primary-400 text-sm transition-colors">
+              Cookies
             </Link>
           </div>
         </div>
