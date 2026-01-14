@@ -34,6 +34,7 @@ const slides = [
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -42,7 +43,16 @@ export default function Hero() {
       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 7000); // 7 seconds per slide
 
-    return () => clearInterval(interval);
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   const goToSlide = (index: number) => {
@@ -51,8 +61,11 @@ export default function Hero() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-neutral-900">
-      {/* Background Slider */}
-      <div className="absolute inset-0">
+      {/* Background Slider with Parallax */}
+      <div
+        className="absolute inset-0 transition-transform duration-75 ease-out"
+        style={{ transform: `translateY(${scrollY * 0.5}px)` }} // Parallax effect
+      >
         {slides.map((slide, index) => (
           <div
             key={slide.id}
@@ -98,33 +111,56 @@ export default function Hero() {
                 ? "opacity-100 pointer-events-auto"
                 : "opacity-0 pointer-events-none"
             )}
+            style={{ transform: `translateY(-${scrollY * 0.2}px)` }} // Slightly move text up faster
           >
             <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-8">
               <div className="max-w-4xl">
                 <div className="overflow-hidden mb-4">
                   <span className={cn(
-                    "inline-block text-secondary-400 font-medium tracking-widest uppercase text-sm mb-2 transform transition-transform duration-700 delay-100",
-                    currentSlide === index ? "translate-y-0" : "translate-y-full"
+                    "inline-block text-secondary-400 font-medium tracking-widest uppercase text-sm mb-2 transform transition-transform duration-700 delay-100 filter drop-shadow-sm",
+                    currentSlide === index ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
                   )}>
                     Arte Andino Premium
                   </span>
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-playfair font-bold text-white leading-[1.1] tracking-tight mb-6 drop-shadow-lg">
-                  <span className="block">{slide.title.split(' ').slice(0, 3).join(' ')}</span>
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-400">
+                  <span
+                    className={cn(
+                      "block transition-all duration-700 delay-200 transform",
+                      currentSlide === index ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+                    )}
+                  >
+                    {slide.title.split(' ').slice(0, 3).join(' ')}
+                  </span>
+                  <span
+                    className={cn(
+                      "block text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-400 transition-all duration-700 delay-300 transform",
+                      currentSlide === index ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+                    )}
+                  >
                     {slide.title.split(' ').slice(3).join(' ')}
                   </span>
                 </h1>
 
-                <p className="text-xl md:text-2xl text-neutral-300 max-w-2xl mb-10 font-light leading-relaxed drop-shadow-md">
+                <p
+                  className={cn(
+                    "text-xl md:text-2xl text-neutral-300 max-w-2xl mb-10 font-light leading-relaxed drop-shadow-md transition-all duration-700 delay-500 transform",
+                    currentSlide === index ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+                  )}
+                >
                   {slide.subtitle}
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-5">
+                <div
+                  className={cn(
+                    "flex flex-col sm:flex-row gap-5 transition-all duration-700 delay-700 transform",
+                    currentSlide === index ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+                  )}
+                >
                   <Button
                     size="lg"
-                    className="rounded-full px-8 py-7 text-lg bg-primary-600 hover:bg-primary-700 text-white shadow-lg shadow-primary-900/20 group animate-slide-up"
+                    className="rounded-full px-8 py-7 text-lg bg-primary-600 hover:bg-primary-700 text-white shadow-lg shadow-primary-900/20 group hover:scale-105 transition-all duration-300"
                     asChild
                   >
                     <Link href="/productos">
@@ -136,8 +172,7 @@ export default function Hero() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="rounded-full px-8 py-7 text-lg border-white/30 bg-white/5 backdrop-blur-sm text-white hover:bg-white/20 animate-slide-up"
-                    style={{ animationDelay: '100ms' }}
+                    className="rounded-full px-8 py-7 text-lg border-white/30 bg-white/5 backdrop-blur-sm text-white hover:bg-white/20 hover:scale-105 transition-all duration-300"
                     asChild
                   >
                     <Link href="/artesanos" className="flex items-center">
